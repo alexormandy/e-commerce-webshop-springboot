@@ -7,7 +7,10 @@
 <body>
 
 <div class="products" th:each="product: ${productModelList}">
-    <h1 th:text="${product}">Question:</h1>
+    <h1 th:text="${product.name}">Product Name</h1>
+    <h2 th:text="${product.description}">Product Description</h2>
+    <h3 th:text="${product.price}">Product Price</h3>
+    <h3 th:text="${product.pictureUrl}">Product Image</h3>
 </div>
 
 </body>

@@ -16,14 +16,20 @@ public class ProductModel implements Serializable {
     @Basic(optional = false)
     private String name;
 
+    private String description;
+
     private Double price;
 
     private String pictureUrl;
 
-    public ProductModel(@NotNull(message = "Product name is required.") String name, Double price, String pictureUrl) {
+    public ProductModel(@NotNull(message = "Product name is required.") String name,String description, Double price, String pictureUrl) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.pictureUrl = pictureUrl;
+    }
+
+    public ProductModel() {
     }
 
     public Long getId() {
@@ -40,6 +46,14 @@ public class ProductModel implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Double getPrice() {

@@ -14,11 +14,11 @@ public class ProductController {
     @GetMapping(value = "/products/all")
     public String getProductsAllPage (Model model) {
 
-        ProductModel product1 = new ProductModel("Rubber Duck", 12D, "http://google.com");
+        ProductModel product1 = new ProductModel("Rubber Duck", "Yellow Duck", 12D, "http://google.com");
 
         List<ProductModel> productModelList = new ArrayList<>();
         productModelList.add(product1);
-        System.out.println(product1.toString());
+//        System.out.println(product1.toString());
 
         model.addAttribute("productModelList", productModelList);
 
