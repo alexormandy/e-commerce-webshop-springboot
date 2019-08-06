@@ -2,8 +2,6 @@ package com.webshop.webshop;
 
 import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.model.ProductModel;
-import com.webshop.webshop.repository.ProductRepository;
-import org.apache.catalina.users.MemoryUserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

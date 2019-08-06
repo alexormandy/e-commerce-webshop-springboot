@@ -9,18 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
 
     private ProductRepository productRepo;
-
     private ProductDAO productDAO;
 
     @Autowired
@@ -33,7 +29,6 @@ public class ProductController {
     public String getProductsAllPage (Model model) {
 
         List<ProductModel> productModelList = productRepo.findAll();
-
         model.addAttribute("productModelList", productModelList);
 
         return "productsAll";
@@ -42,12 +37,9 @@ public class ProductController {
     @GetMapping("/{id}")
     public String getProductsByIDPage(@PathVariable String id, Model model) {
 
-        System.out.println("parameter: " + id);
-
         Long idLong = Long.parseLong(id);
 
         ProductModel productModelFind = productDAO.getSingleProduct(idLong);
-
         List<ProductModel> productModelList = new ArrayList<>();
         productModelList.add(productModelFind);
 
@@ -55,6 +47,5 @@ public class ProductController {
 
         return "productsById";
     }
-
 
 }
