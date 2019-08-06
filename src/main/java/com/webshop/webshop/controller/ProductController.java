@@ -1,44 +1,60 @@
 package com.webshop.webshop.controller;
 
+import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.model.ProductModel;
+import com.webshop.webshop.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 
-    @GetMapping(value = "/products/all")
+    private ProductRepository productRepo;
+
+    private ProductDAO productDAO;
+
+    @Autowired
+    public ProductController(ProductDAO productDAO, ProductRepository productRepo) {
+        this.productDAO = productDAO;
+        this.productRepo = productRepo;
+    }
+
+    @GetMapping
     public String getProductsAllPage (Model model) {
 
-        ProductModel product1 = new ProductModel("Rubber Duck", "Yellow Duck", 12D, "http://google.com");
-        ProductModel product2 = new ProductModel("Football", "Red Ball", 20D, "http://google.com");
-
-        List<ProductModel> productModelList = new ArrayList<>();
-        productModelList.add(product1);
-        productModelList.add(product2);
+        List<ProductModel> productModelList = productRepo.findAll();
 
         model.addAttribute("productModelList", productModelList);
 
         return "productsAll";
     }
 
-    @GetMapping(value = "/products/{id}")
-    public String getProductsByIDPage (Model model) {
+    @GetMapping("/{id}")
+    public String getProductsByIDPage(@PathVariable String id, Model model) {
 
-        ProductModel product1 = new ProductModel("Rubber Duck", "Yellow Duck", 12D, "http://google.com");
-        ProductModel product2 = new ProductModel("Football", "Red Ball", 20D, "http://google.com");
+        System.out.println("parameter: " + id);
+
+        Long idLong = Long.parseLong(id);
+
+        ProductModel productModelFind = productDAO.getSingleProduct(idLong);
 
         List<ProductModel> productModelList = new ArrayList<>();
-        productModelList.add(product1);
-        productModelList.add(product2);
+        productModelList.add(productModelFind);
 
         model.addAttribute("productModelList", productModelList);
 
-        return "productsAll";
+        return "productsById";
     }
+
 
 }
