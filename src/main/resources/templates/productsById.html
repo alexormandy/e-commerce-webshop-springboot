@@ -12,15 +12,19 @@
 
 <nav th:insert="fragments :: header"></nav>
 <br>
-<div class="container" th:each="product: ${productModelList}">
-    <h1 th:text="${product.name}">Product Name</h1>
-    <h2 th:text="${product.description}">Product Description</h2>
-    <h3 th:text="${product.price}">Product Price</h3>
-    <h3 th:text="${product.id}">Product ID</h3>
-    <h3 th:text="${product.pictureUrl}">Product Image</h3>
-    <br>
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col" th:each="product: ${productModelList}">
+            <a th:href="@{'/products/' + ${product.id}}"><h3 th:text="${product.name}">Product Name</h3></a>
+            <a th:href="@{'/products/' + ${product.id}}"><img height="300" length="600" th:src="@{'/products/images/' + ${product.pictureUrl}}"/></a>
+            <h4 th:text="${product.description}">Product Description</h4>
+            <h3>£<span th:text="${product.price}">Product Price></span></h3>
+            <h5>Product ID: <span th:text="${product.id}">Product ID</span></h5>
+            <div class="w-100"></div>
+        </div>
+    </div>
 </div>
-<!--<footer th:insert="fragments :: footer"></footer>-->
 
 </body>
 </html>
