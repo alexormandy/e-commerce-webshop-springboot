@@ -1,10 +1,9 @@
 package com.webshop.webshop.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(name = "product")
@@ -21,6 +20,9 @@ public class ProductModel implements Serializable {
     private Double price;
 
     private ArrayList productOptions;
+
+    private String sizesForShoes;
+    private String sizesSmallMediumLarge;
 
     private String pictureUrl;
 
