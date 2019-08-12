@@ -1,6 +1,7 @@
 function myFunction(button) {
 
 let id = document.getElementById("id").textContent;
+
 console.log(id);
 
  $.ajax({

@@ -23,7 +23,6 @@ public class CheckoutController {
     @GetMapping
     public String getCheckoutPAGE (Model model) {
 
-
         return "checkout";
     }
 

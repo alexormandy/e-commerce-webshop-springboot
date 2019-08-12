@@ -21,7 +21,17 @@
             <a th:href="@{'/products/' + ${product.id}}"><img height="300" length="600" th:src="@{'/products/images/' + ${product.pictureUrl}}"/></a>
             <h4 th:text="${product.description}">Product Description</h4>
             <h3>£<span th:text="${product.price}">Product Price></span></h3>
+            <br>
             <h5>Product ID: <span id="id" th:text="${product.id}">Product ID</span></h5>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Product Options
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" th:each="option: ${product.productOptions}" th:text="${option}" href="#">option</a>
+                </div>
+            </div>
+            <br>
             <button type="button" class="btn btn-success" onclick="myFunction(this)">Add To Checkout</button>
             <div class="w-100"></div>
         </div>

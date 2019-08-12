@@ -3,6 +3,8 @@ package com.webshop.webshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -12,24 +14,33 @@ public class ProductModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Product name is required.")
-    @Basic(optional = false)
     private String name;
 
     private String description;
 
     private Double price;
 
+    private ArrayList productOptions;
+
     private String pictureUrl;
 
-    public ProductModel(@NotNull(message = "Product name is required.") String name,String description, Double price, String pictureUrl) {
+    public ProductModel(String name, String description, Double price, ArrayList productOptions, String pictureUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.productOptions = productOptions;
         this.pictureUrl = pictureUrl;
     }
 
     public ProductModel() {
+    }
+
+    public ArrayList getProductOptions() {
+        return productOptions;
+    }
+
+    public void setProductOptions(ArrayList productOptions) {
+        this.productOptions = productOptions;
     }
 
     public Long getId() {
