@@ -5,6 +5,8 @@ import com.webshop.webshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductDAO {
 
@@ -25,5 +27,9 @@ public class ProductDAO {
 
     public void clearRepository() {
         productRepository.deleteAll();
+    }
+
+    public List<ProductModel> findAll() {
+        return productRepository.findAll();
     }
 }

@@ -3,6 +3,7 @@ package com.webshop.webshop.controller;
 import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.repository.ProductRepository;
+import com.webshop.webshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,19 +17,17 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductRepository productRepo;
-    private ProductDAO productDAO;
+    private ProductService productService;
 
     @Autowired
-    public ProductController(ProductDAO productDAO, ProductRepository productRepo) {
-        this.productDAO = productDAO;
-        this.productRepo = productRepo;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
     public String getProductsAllPage (Model model) {
 
-        List<ProductModel> productModelList = productRepo.findAll();
+        List<ProductModel> productModelList = productService.getAllProducts();
         model.addAttribute("productModelList", productModelList);
 
         return "productsAll";
@@ -37,12 +36,10 @@ public class ProductController {
     @GetMapping("/{id}")
     public String getProductsByIDPage(@PathVariable String id, Model model) {
 
-        Long idLong = Long.parseLong(id);
+        ProductModel productModelFind = productService.getSingleProduct(id);
 
-        ProductModel productModelFind = productDAO.getSingleProduct(idLong);
         List<ProductModel> productModelList = new ArrayList<>();
         productModelList.add(productModelFind);
-
         model.addAttribute("productModelList", productModelList);
 
         return "productsById";
