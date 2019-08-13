@@ -24,17 +24,15 @@ public class WebshopApplication {
 
 //		productDAO.clearRepository();
 //
-//		ArrayList sizesSML = new ArrayList();
-//		sizesSML.add("Small");
-//		sizesSML.add("Medium");
-//		sizesSML.add("Large");
+//		String productSizesSML = "Small,Medium,Large";
+//		String productSizesShoes = "4,5,6,7,8";
 //
 //		ProductModel product1 = new ProductModel("Navy Zak Puppytooth Suit Jacket", "Navy puppytooth suit jacket in a regular fit with a two button fasten, " +
-//				"jetted chest pocket with detachable pocket square", 12.50D, sizesSML, "/r08yy131704w.jpg");
+//				"jetted chest pocket with detachable pocket square", 12.50D, productSizesSML, "/r08yy131704w.jpg");
 //		ProductModel product2 = new ProductModel("Blue Short Sleeve Textured Double Collar Shirt Long", "Stay on trend this season with our short sleeve double " +
-//				"collar button down shirt with a textured print design.", 20.99D, sizesSML, "/r08ca136705w.jpg");
+//				"collar button down shirt with a textured print design.", 20.99D, productSizesSML, "/r08ca136705w.jpg");
 //		ProductModel product3 = new ProductModel("Vans Ward Trainers", "The Ward trainers feature the iconic Vans classic side stripe, padded collars for comfort " +
-//				"and platform rubber waffle outsoles for a firm grip.", 20D, sizesSML, "/q08yd333707s.jpg");
+//				"and platform rubber waffle outsoles for a firm grip.", 20D, productSizesShoes, "/q08yd333707s.jpg");
 //
 //		productDAO.saveProduct(product1);
 //		productDAO.saveProduct(product2);

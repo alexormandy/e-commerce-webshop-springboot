@@ -32,4 +32,5 @@ public class ProductDAO {
     public List<ProductModel> findAll() {
         return productRepository.findAll();
     }
+
 }

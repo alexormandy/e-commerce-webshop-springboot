@@ -19,30 +19,19 @@ public class ProductModel implements Serializable {
 
     private Double price;
 
-    private ArrayList productOptions;
-
-    private String sizesForShoes;
-    private String sizesSmallMediumLarge;
+    private String productSizes;
 
     private String pictureUrl;
 
-    public ProductModel(String name, String description, Double price, ArrayList productOptions, String pictureUrl) {
+    public ProductModel(String name, String description, Double price, String productSizes, String pictureUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.productOptions = productOptions;
+        this.productSizes = productSizes;
         this.pictureUrl = pictureUrl;
     }
 
     public ProductModel() {
-    }
-
-    public ArrayList getProductOptions() {
-        return productOptions;
-    }
-
-    public void setProductOptions(ArrayList productOptions) {
-        this.productOptions = productOptions;
     }
 
     public Long getId() {
@@ -75,6 +64,14 @@ public class ProductModel implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getProductSizes() {
+        return productSizes;
+    }
+
+    public void setProductSizes(String productSizes) {
+        this.productSizes = productSizes;
     }
 
     public String getPictureUrl() {

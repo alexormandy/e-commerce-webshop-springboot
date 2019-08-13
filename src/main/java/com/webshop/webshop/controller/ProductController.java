@@ -40,6 +40,9 @@ public class ProductController {
         productModelList.add(productModelFind);
         model.addAttribute("productModelList", productModelList);
 
+        List productSizesList = productService.getSizeDetails(productModelFind);
+        model.addAttribute("productSizesList", productSizesList);
+
         return "productsById";
     }
 

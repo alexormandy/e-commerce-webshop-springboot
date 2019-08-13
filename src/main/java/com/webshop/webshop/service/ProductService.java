@@ -5,6 +5,8 @@ import com.webshop.webshop.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,5 +28,13 @@ public class ProductService {
     public List<ProductModel> getAllProducts() {
 
         return productDAO.findAll();
+    }
+
+    public List getSizeDetails(ProductModel productModel){
+
+        String productSizes = productModel.getProductSizes();
+        List<String> productSizesList = Arrays.asList(productSizes.split("\\s*,\\s*"));
+
+        return productSizesList;
     }
 }
