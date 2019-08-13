@@ -4,10 +4,9 @@ import com.webshop.webshop.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -27,11 +26,26 @@ public class CheckoutController {
         return "checkout";
     }
 
+    @ResponseBody
     @PostMapping("/add")
-    public String addProductToBasket(@RequestParam(name= "id") String id, @RequestParam(name= "productSize") String productSize) {
+    public String addProductToBasket(@RequestParam(name= "id") String id,
+                                     @RequestParam(name= "productSize") String productSize, HttpSession session) {
 
-        System.out.println(id);
-        System.out.println(productSize);
+        Integer itemsInBagGet = (Integer) session.getAttribute("itemsInBag");
+        if (itemsInBagGet != null) {
+            itemsInBagGet += 1;
+        } else {
+            itemsInBagGet = 0;
+        }
+
+        session.setAttribute("itemsInBag", itemsInBagGet);
+        System.out.println(session.getAttribute("itemsInBag"));
+
+        if (productSize.contains("Product Options")) {
+            System.out.println("not valid");
+        } else {
+            System.out.println("valid");
+        }
 
         return "Success";
     }
