@@ -32,9 +32,9 @@ public class ProductService {
 
     public List getSizeDetails(ProductModel productModel){
 
-        String productSizes = productModel.getProductSizes();
-        List<String> productSizesList = Arrays.asList(productSizes.split("\\s*,\\s*"));
+        String productSize = productModel.getProductSizes();
+        List<String> productSizeList = Arrays.asList(productSize.split("\\s*,\\s*"));
 
-        return productSizesList;
+        return productSizeList;
     }
 }
