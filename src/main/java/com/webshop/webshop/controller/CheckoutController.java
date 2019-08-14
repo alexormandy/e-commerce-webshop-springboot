@@ -29,14 +29,12 @@ public class CheckoutController {
     @PostMapping("/add")
     public String addProductToBasket(@RequestParam(name= "id") String id,
                                      @RequestParam(name= "productSize") String productSize,
-                                     HttpSession session,
-                                     Model model) {
+                                     HttpSession session){
 
-        int itemsInBag = checkoutService.updateShoppingBasketValue(id, productSize, session);
+        Integer itemsInBag = checkoutService.updateShoppingBasketValue(id, productSize, session);
+        String items = String.valueOf(itemsInBag);
 
-        model.addAttribute("itemsInBag", itemsInBag);
-
-        return "success";
+        return items;
     }
 
 }

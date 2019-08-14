@@ -12,6 +12,8 @@ function myFunction(button) {
 let id = document.getElementById("id").textContent;
 let productSize = document.getElementById("dropdownMenuButton").textContent;
 
+let items = document.getElementById("items");
+
 console.log(id);
 console.log(productSize);
 
@@ -20,8 +22,8 @@ console.log(productSize);
               url :  "/checkout/add",
               data :{"id" : id, "productSize" : productSize},
               success : function(result) {
-              console.log(result);
 
+               items.textContent = "Items: " + result;
               }
             });
 

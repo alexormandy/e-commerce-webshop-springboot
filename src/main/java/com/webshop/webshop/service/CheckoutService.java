@@ -14,7 +14,7 @@ public class CheckoutService {
         if (itemsInBagGet != null) {
             itemsInBagGet += 1;
         } else {
-            itemsInBagGet = 0;
+            itemsInBagGet = 1;
         }
 
         session.setAttribute("itemsInBag", itemsInBagGet);

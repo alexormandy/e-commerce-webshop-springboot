@@ -37,7 +37,10 @@
 <!--                </div>-->
 <!--            </li>-->
             <li class="nav-item">
-                <a class="fas fa-shopping-basket nav-link" href="/checkout" tabindex="-1" aria-disabled="true">Checkout / View Bag</a><h3 th:text="${itemsInBag}"></h3>
+                <a class="nav-link" href="/checkout" tabindex="-1" aria-disabled="true">Checkout / View Bag</a>
+            </li>
+            <li class="nav-item">
+            <a id="items" class="nav-link" th:text="'Items: '+ ${session.itemsInBag}">Items</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
