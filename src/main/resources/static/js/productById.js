@@ -9,21 +9,20 @@ $(function(){
 
 function myFunction(button) {
 
-let id = document.getElementById("id").textContent;
+let productId = document.getElementById("productId").textContent;
+let productTitle = document.getElementById("productTitle").textContent;
 let productSize = document.getElementById("dropdownMenuButton").textContent;
+let productPrice = document.getElementById("productPrice").textContent;
 
 let items = document.getElementById("items");
-
-console.log(id);
-console.log(productSize);
 
  $.ajax({
               type : "POST",
               url :  "/checkout/add",
-              data :{"id" : id, "productSize" : productSize},
+              data :{"productId" : productId, "productTitle" : productTitle, "productSize" : productSize, "productPrice" : productPrice},
               success : function(result) {
 
-               items.textContent = "Items: " + result;
+               items.textContent = result;
               }
             });
 

@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 @Entity
 @Table(name = "product")
 public class ProductModel implements Serializable {

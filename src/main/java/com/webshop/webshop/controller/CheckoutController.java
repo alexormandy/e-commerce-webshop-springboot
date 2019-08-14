@@ -22,17 +22,26 @@ public class CheckoutController {
     @GetMapping
     public String getCheckoutPage (Model model) {
 
+        model.addAttribute("checkout", checkoutService.fetchCheckout());
+        model.addAttribute("subTotal", checkoutService.calculateNumberOfItemsInBag());
+
         return "checkout";
     }
 
     @ResponseBody
     @PostMapping("/add")
-    public String addProductToBasket(@RequestParam(name= "id") String id,
+    public String addProductToBasket(@RequestParam(name= "productId") String productId,
+                                     @RequestParam(name= "productTitle") String productTitle,
                                      @RequestParam(name= "productSize") String productSize,
+                                     @RequestParam(name= "productPrice") String productPrice,
                                      HttpSession session){
 
-        Integer itemsInBag = checkoutService.updateShoppingBasketValue(id, productSize, session);
+        Integer itemsInBag = checkoutService.updateShoppingBasketValue(productId, productSize, session);
         String items = String.valueOf(itemsInBag);
+
+        Double productPriceDouble = Double.parseDouble(productPrice);
+        int productIdInt = Integer.parseInt(productId);
+        checkoutService.addToBasket(productIdInt, productTitle, productSize, productPriceDouble);
 
         return items;
     }

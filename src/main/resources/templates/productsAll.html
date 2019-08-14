@@ -13,9 +13,9 @@
 <nav th:insert="fragments/fragments :: header"></nav>
 <br>
 
-<h2>All Products</h2>
-
 <div class="container" th:fragment="productsAll">
+    <h2>All Products</h2>
+    <br>
     <div class="row align-items-center">
     <div class="col" th:each="product: ${productModelList}">
         <a th:href="@{'/products/' + ${product.id}}"><h3 th:text="${product.name}">Product Name</h3></a>
