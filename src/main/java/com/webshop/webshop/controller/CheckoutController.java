@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 
 
@@ -29,25 +28,15 @@ public class CheckoutController {
     @ResponseBody
     @PostMapping("/add")
     public String addProductToBasket(@RequestParam(name= "id") String id,
-                                     @RequestParam(name= "productSize") String productSize, HttpSession session) {
+                                     @RequestParam(name= "productSize") String productSize,
+                                     HttpSession session,
+                                     Model model) {
 
-        Integer itemsInBagGet = (Integer) session.getAttribute("itemsInBag");
-        if (itemsInBagGet != null) {
-            itemsInBagGet += 1;
-        } else {
-            itemsInBagGet = 0;
-        }
+        int itemsInBag = checkoutService.updateShoppingBasketValue(id, productSize, session);
 
-        session.setAttribute("itemsInBag", itemsInBagGet);
-        System.out.println(session.getAttribute("itemsInBag"));
+        model.addAttribute("itemsInBag", itemsInBag);
 
-        if (productSize.contains("Product Options")) {
-            System.out.println("not valid");
-        } else {
-            System.out.println("valid");
-        }
-
-        return "Success";
+        return "success";
     }
 
 }
