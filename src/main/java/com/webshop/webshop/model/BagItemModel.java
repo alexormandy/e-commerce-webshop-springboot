@@ -2,8 +2,14 @@ package com.webshop.webshop.model;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
 public class BagItemModel {
+
+    Random randomNumber;
+
+    private int productIdentifier;
 
     private int productId;
 
@@ -14,6 +20,8 @@ public class BagItemModel {
     private Double productPrice;
 
     public BagItemModel(int productId, String productTitle, String productSize, Double productPrice) {
+        randomNumber = new Random();
+        this.productIdentifier = randomNumber.nextInt(999);
         this.productId = productId;
         this.productTitle = productTitle;
         this.productSize = productSize;
@@ -21,6 +29,14 @@ public class BagItemModel {
     }
 
     public BagItemModel() {
+    }
+
+    public int getProductIdentifier() {
+        return productIdentifier;
+    }
+
+    public void getProductIdentifier(int productIdentifier) {
+        this.productIdentifier = productIdentifier;
     }
 
     public int getProductId() {

@@ -7,21 +7,20 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CheckoutService {
 
-    private BagItemModel bagItemModel;
-
-    List<BagItemModel> basket;
+    private List<BagItemModel> basket;
 
     @Autowired
-    public CheckoutService(BagItemModel bagItemModel) {
-        this.bagItemModel = bagItemModel;
+    public CheckoutService() {
         basket = new ArrayList<>();
     }
 
-    public CheckoutService() {
+    protected List<BagItemModel> getBasket() {
+        return basket;
     }
 
     /**
@@ -43,7 +42,6 @@ public class CheckoutService {
         }
 
         session.setAttribute("itemsInBag", itemsInBagGet);
-        System.out.println(session.getAttribute("itemsInBag"));
 
         return itemsInBagGet;
     }
@@ -51,7 +49,22 @@ public class CheckoutService {
     public void addToBasket(int productId,String productTitle, String productSize, Double productPrice) {
 
         BagItemModel bagItemModel = new BagItemModel(productId, productTitle, productSize, productPrice);
+//        System.out.println(bagItemModel.getProductIdentifier());
         basket.add(bagItemModel);
+    }
+
+    public void removeFromBasket(String productIdentifier) {
+
+        System.out.println(basket.size());
+
+        BagItemModel itemToBeRemoved  = basket
+                .stream()
+                .filter(item -> item.getProductIdentifier() == Integer.parseInt(productIdentifier))
+                .findFirst()
+                .orElse(null);
+
+        basket.remove(itemToBeRemoved);
+        System.out.println(basket.size());
 
     }
 
@@ -66,7 +79,7 @@ public class CheckoutService {
     }
 
     /**
-     * Loops through basket array and adds it back to object and adds up items based on .size()
+     * Loops through basket array and adds it back to object, adding up items based on .size()
      * @return
      */
     public double calculateSubTotal() {

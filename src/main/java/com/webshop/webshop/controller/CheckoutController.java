@@ -47,4 +47,14 @@ public class CheckoutController {
         return items;
     }
 
+    @ResponseBody
+    @PostMapping("/remove")
+    public String addProductToBasket(@RequestParam(name= "productIdentifier") String productIdentifier){
+
+        System.out.println(productIdentifier);
+        checkoutService.removeFromBasket(productIdentifier);
+
+        return "success";
+    }
+
 }
