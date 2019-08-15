@@ -27,19 +27,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="checkout: ${checkout}">
-            <th scope="row" th:text="${checkout.productId}"></th>
-            <td th:text="${checkout.productTitle}"></td>
-            <td th:text="${checkout.productSize}"></td>
-            <td>£<span th:text="${checkout.productPrice}"></span></td>
+        <tr th:each="basket: ${basket}">
+            <th scope="row" th:text="${basket.productId}"></th>
+            <td th:text="${basket.productTitle}"></td>
+            <td th:text="${basket.productSize}"></td>
+            <td>£<span th:text="${basket.productPrice}"></span></td>
         </tr>
-        <tr>
-            <th scope="col">Subtotal:<span th:text="${subTotal}"></span></th>
-            <th scope="col">Grand Total:<span th:text="${grandTotal}"></span></th>
-        </tr>
+        <tr><th scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
+        <tr><th scope="col">Subtotal: £<span th:text="${subTotal}"></span></th></tr>
+        <tr><th scope="col">Delivery: £<span th:text="${deliveryCharge}"></span></th></tr>
+        <th scope="col">Grand Total: £<span th:text="${grandTotal}"></span></th>
         </tbody>
     </table>
-
 </div>
 
 </body>

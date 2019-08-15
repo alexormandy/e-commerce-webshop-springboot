@@ -1,6 +1,7 @@
 package com.webshop.webshop.service;
 
 import com.webshop.webshop.model.BagItemModel;
+import org.hibernate.mapping.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,13 @@ public class CheckoutService {
     public CheckoutService() {
     }
 
+    /**
+     * Checks if session attribute exists, if not sets it to 1. Then increments.
+     * @param id
+     * @param productSize
+     * @param session
+     * @return
+     */
     public int updateShoppingBasketValue(String id,
                                          String productSize,
                                          HttpSession session) {
@@ -47,7 +55,7 @@ public class CheckoutService {
 
     }
 
-    public List<BagItemModel> fetchCheckout() {
+    public List<BagItemModel> fetchBasket() {
 
         return basket;
     }
@@ -57,14 +65,19 @@ public class CheckoutService {
         return basket.size();
     }
 
-//    public double calculateSubTotal() {
-//        double subtotal = 0;
-//
-//        for (int i = 0; i < basket.size(); i++) {
-//            subtotal += basket.get(i);
-//        }
-//        return subtotal;
-//    }
+    /**
+     * Loops through basket array and adds it back to object and adds up items based on .size()
+     * @return
+     */
+    public double calculateSubTotal() {
+        double subtotal = 0;
+
+        for (int i = 0; i < basket.size(); i++) {
+            BagItemModel bagItem = basket.get(i);
+            subtotal += bagItem.getProductPrice();
+        }
+        return subtotal;
+    }
 
     }
 
@@ -73,4 +86,4 @@ public class CheckoutService {
 //
 //    }
 
-}
+

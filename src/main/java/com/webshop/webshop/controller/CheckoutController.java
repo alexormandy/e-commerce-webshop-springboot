@@ -22,8 +22,9 @@ public class CheckoutController {
     @GetMapping
     public String getCheckoutPage (Model model) {
 
-        model.addAttribute("checkout", checkoutService.fetchCheckout());
-        model.addAttribute("subTotal", checkoutService.calculateNumberOfItemsInBag());
+        model.addAttribute("basket", checkoutService.fetchBasket());
+        model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag());
+        model.addAttribute("subTotal", checkoutService.calculateSubTotal());
 
         return "checkout";
     }
