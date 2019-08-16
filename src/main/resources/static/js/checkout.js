@@ -1,9 +1,6 @@
 function removeProduct(productIdentifier) {
 
-//let productIdentifier = document.getElementById("productId").textContent;
-//console.log(productIdentifier);
-
-console.log(productIdentifier);
+let items = document.getElementById("items");
 
  $.ajax({
               type : "POST",
@@ -11,9 +8,26 @@ console.log(productIdentifier);
               data :{"productIdentifier" : productIdentifier},
               success : function(result) {
 
-              $( "" ).remove();
+              items.textContent = result;
+              $('#productRow').remove();
+              updateTotals();
 
               }
             });
+
+ }
+
+ function updateTotals() {
+
+  $.ajax({
+               type : "POST",
+               url :  "/checkout/updateTotals",
+               success : function(result) {
+
+                $('#basketTable').remove();
+                $(result).insertAfter("#basketTotals");
+
+               }
+             });
 
  }

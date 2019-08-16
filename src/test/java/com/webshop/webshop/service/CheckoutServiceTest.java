@@ -4,9 +4,7 @@ import com.webshop.webshop.model.BagItemModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpSession;
-
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class CheckoutServiceTest {
@@ -14,7 +12,6 @@ public class CheckoutServiceTest {
     private CheckoutService checkoutService;
     private int productIdentifier;
     private MockHttpSession session;
-
 
     @Before
     public void setUp() {

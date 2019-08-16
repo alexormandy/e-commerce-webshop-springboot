@@ -1,14 +1,12 @@
 package com.webshop.webshop.service;
 
 import com.webshop.webshop.model.BagItemModel;
-import org.hibernate.mapping.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CheckoutService {
@@ -17,27 +15,17 @@ public class CheckoutService {
     public CheckoutService() {
     }
 
-    /**
-     * Checks if session attribute exists, if not sets it to 1. Then increments.
-     * @param id
-     * @param productSize
-     * @param session
-     * @return
-     */
-    public int updateShoppingBasketValue(String id,
-                                         String productSize,
-                                         HttpSession session) {
+    public int updateShoppingBasketValue(int value, HttpSession session) {
 
-        Integer itemsInBagGet = (Integer) session.getAttribute("itemsInBag");
-        if (itemsInBagGet != null) {
-            itemsInBagGet += 1;
+        Integer itemsInBag = (Integer) session.getAttribute("itemsInBag");
+        if (itemsInBag != null) {
+            itemsInBag += value;
         } else {
-            itemsInBagGet = 1;
+            itemsInBag = 1;
         }
 
-        session.setAttribute("itemsInBag", itemsInBagGet);
-
-        return itemsInBagGet;
+        session.setAttribute("itemsInBag", itemsInBag);
+        return itemsInBag;
     }
 
     public void checkBagIsEmpty (HttpSession session) {
@@ -71,8 +59,6 @@ public class CheckoutService {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
 
-        System.out.println(basket.size());
-
         BagItemModel itemToBeRemoved  = basket
                 .stream()
                 .filter(item -> item.getProductIdentifier() == Integer.parseInt(productIdentifier))
@@ -81,7 +67,6 @@ public class CheckoutService {
 
         basket.remove(itemToBeRemoved);
         session.setAttribute("basket", basket);
-        System.out.println(basket.size());
     }
 
     public List<BagItemModel> fetchBasket(HttpSession session) {
@@ -100,7 +85,7 @@ public class CheckoutService {
      * Loops through basket array and adds it back to object, adding up items based on .size()
      * @return
      */
-    public double calculateSubTotal(HttpSession session) {
+    public String calculateSubTotal(HttpSession session) {
         double subtotal = 0;
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
@@ -109,9 +94,11 @@ public class CheckoutService {
             BagItemModel bagItem = basket.get(i);
             subtotal += bagItem.getProductPrice();
         }
-        return subtotal;
+
+        DecimalFormat df = new DecimalFormat("0.##");
+        return df.format(subtotal);
     }
 
-    }
+}
 
 

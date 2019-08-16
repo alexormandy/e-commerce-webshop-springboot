@@ -27,6 +27,8 @@ public class CheckoutController {
         model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
         model.addAttribute("subTotal", checkoutService.calculateSubTotal(session));
 
+        updateBasketTotals(model, session);
+
         return "checkout";
     }
 
@@ -38,7 +40,7 @@ public class CheckoutController {
                                      @RequestParam(name= "productPrice") String productPrice,
                                      HttpSession session){
 
-        Integer itemsInBag = checkoutService.updateShoppingBasketValue(productId, productSize, session);
+        Integer itemsInBag = checkoutService.updateShoppingBasketValue(+1, session);
         String items = String.valueOf(itemsInBag);
 
         Double productPriceDouble = Double.parseDouble(productPrice);
@@ -56,7 +58,20 @@ public class CheckoutController {
         System.out.println(productIdentifier);
         checkoutService.removeFromBasket(productIdentifier, session);
 
-        return "success";
+        Integer itemsInBag = checkoutService.updateShoppingBasketValue(-1, session);
+        String items = String.valueOf(itemsInBag);
+
+        return items;
+    }
+
+    @PostMapping("/updateTotals")
+    public String updateBasketTotals(Model model, HttpSession session){
+
+        model.addAttribute("basket", checkoutService.fetchBasket(session));
+        model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
+        model.addAttribute("subTotal", checkoutService.calculateSubTotal(session));
+
+        return "fragments/fragments :: basketTotals";
     }
 
 }

@@ -10,7 +10,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <!--<script src="https://kit.fontawesome.com/1c1da2d8bf.js"></script>-->
 </head>
-<body>
+<tr>
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
@@ -50,10 +50,13 @@
     </div>
 </nav>
 
-<footer id="sticky-footer" class="py-4" th:fragment="footer">
-    <div class="container text-center">
-        <small>Footer</small>
-    </div>
-</footer>
+        <table id="basketTable" th:fragment="basketTotals">
+        <tr><th id="numberOfItems" scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
+        <tr><th id="subTotal" scope="col">Subtotal: £<span th:text="${subTotal}"></span></th></tr>
+        <tr><th id="delivery" scope="col">Delivery: £<span th:text="${deliveryCharge}"></span></th></tr>
+        <tr><th id="grandTotal" scope="col">Grand Total: £<span th:text="${grandTotal}"></span></th></tr>
+        </table>
+
+
 </body>
 </html>

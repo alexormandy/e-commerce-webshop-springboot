@@ -29,19 +29,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="basket: ${basket}">
+        <tr id="productRow" th:each="basket: ${basket}">
             <th id="productId" scope="row" th:text="${basket.productId}" th:value="${basket.productIdentifier}"></th>
             <td th:text="${basket.productTitle}"></td>
             <td th:text="${basket.productSize}"></td>
             <td>£<span th:text="${basket.productPrice}"></span></td>
             <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
         </tr>
-        <tr><th scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
-        <tr><th scope="col">Subtotal: £<span th:text="${subTotal}"></span></th></tr>
-        <tr><th scope="col">Delivery: £<span th:text="${deliveryCharge}"></span></th></tr>
-        <th scope="col">Grand Total: £<span th:text="${grandTotal}"></span></th>
+        <tr id="basketTotals">
+        <table id="basketTable" th:fragment="basketTotals">
+            <tr><th id="numberOfItems" scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
+            <tr><th id="subTotal" scope="col">Subtotal: £<span th:text="${subTotal}"></span></th></tr>
+            <tr><th id="delivery" scope="col">Delivery: £<span th:text="${deliveryCharge}"></span></th></tr>
+            <tr><th id="grandTotal" scope="col">Grand Total: £<span th:text="${grandTotal}"></span></th></tr>
+        </table>
+        </tr>
         </tbody>
     </table>
+
+
 </div>
 
 </body>
