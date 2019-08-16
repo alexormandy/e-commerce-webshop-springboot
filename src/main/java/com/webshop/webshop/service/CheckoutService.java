@@ -6,21 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CheckoutService {
 
-    private List<BagItemModel> basket;
-
     @Autowired
     public CheckoutService() {
-        basket = new ArrayList<>();
-    }
-
-    protected List<BagItemModel> getBasket() {
-        return basket;
     }
 
     /**
@@ -46,14 +40,36 @@ public class CheckoutService {
         return itemsInBagGet;
     }
 
-    public void addToBasket(int productId,String productTitle, String productSize, Double productPrice) {
+    public void checkBagIsEmpty (HttpSession session) {
 
-        BagItemModel bagItemModel = new BagItemModel(productId, productTitle, productSize, productPrice);
-//        System.out.println(bagItemModel.getProductIdentifier());
-        basket.add(bagItemModel);
+        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        if (basket != null) {
+
+        } else {
+            List<BagItemModel> newBasket = new ArrayList<>();
+            session.setAttribute("basket", newBasket);
+        }
     }
 
-    public void removeFromBasket(String productIdentifier) {
+    public void addToBasket(int productId,
+                            String productTitle,
+                            String productSize,
+                            Double productPrice,
+                            HttpSession session) {
+
+        checkBagIsEmpty(session);
+        BagItemModel bagItemModel = new BagItemModel(productId, productTitle, productSize, productPrice);
+
+        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        basket.add(bagItemModel);
+
+        session.setAttribute("basket", basket);
+    }
+
+    public void removeFromBasket(String productIdentifier,
+                                 HttpSession session) {
+
+        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
 
         System.out.println(basket.size());
 
@@ -64,17 +80,19 @@ public class CheckoutService {
                 .orElse(null);
 
         basket.remove(itemToBeRemoved);
+        session.setAttribute("basket", basket);
         System.out.println(basket.size());
-
     }
 
-    public List<BagItemModel> fetchBasket() {
+    public List<BagItemModel> fetchBasket(HttpSession session) {
 
-        return basket;
+        return (List<BagItemModel>) session.getAttribute("basket");
     }
 
-    public int calculateNumberOfItemsInBag() {
+    public int calculateNumberOfItemsInBag(HttpSession session) {
 
+        checkBagIsEmpty(session);
+        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         return basket.size();
     }
 
@@ -82,8 +100,10 @@ public class CheckoutService {
      * Loops through basket array and adds it back to object, adding up items based on .size()
      * @return
      */
-    public double calculateSubTotal() {
+    public double calculateSubTotal(HttpSession session) {
         double subtotal = 0;
+
+        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
 
         for (int i = 0; i < basket.size(); i++) {
             BagItemModel bagItem = basket.get(i);
@@ -93,10 +113,5 @@ public class CheckoutService {
     }
 
     }
-
-//    public double calculateGrandTotal() {
-//
-//
-//    }
 
 

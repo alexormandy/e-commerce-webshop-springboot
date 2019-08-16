@@ -11,7 +11,7 @@ console.log(productIdentifier);
               data :{"productIdentifier" : productIdentifier},
               success : function(result) {
 
-              $( ".hello" ).remove();
+              $( "" ).remove();
 
               }
             });

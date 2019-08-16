@@ -20,11 +20,12 @@ public class CheckoutController {
     }
 
     @GetMapping
-    public String getCheckoutPage (Model model) {
+    public String getCheckoutPage (Model model,
+                                   HttpSession session) {
 
-        model.addAttribute("basket", checkoutService.fetchBasket());
-        model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag());
-        model.addAttribute("subTotal", checkoutService.calculateSubTotal());
+        model.addAttribute("basket", checkoutService.fetchBasket(session));
+        model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
+        model.addAttribute("subTotal", checkoutService.calculateSubTotal(session));
 
         return "checkout";
     }
@@ -42,17 +43,18 @@ public class CheckoutController {
 
         Double productPriceDouble = Double.parseDouble(productPrice);
         int productIdInt = Integer.parseInt(productId);
-        checkoutService.addToBasket(productIdInt, productTitle, productSize, productPriceDouble);
+        checkoutService.addToBasket(productIdInt, productTitle, productSize, productPriceDouble, session);
 
         return items;
     }
 
     @ResponseBody
     @PostMapping("/remove")
-    public String addProductToBasket(@RequestParam(name= "productIdentifier") String productIdentifier){
+    public String addProductToBasket(@RequestParam(name= "productIdentifier") String productIdentifier,
+                                     HttpSession session){
 
         System.out.println(productIdentifier);
-        checkoutService.removeFromBasket(productIdentifier);
+        checkoutService.removeFromBasket(productIdentifier, session);
 
         return "success";
     }
