@@ -16,15 +16,24 @@ let productPrice = document.getElementById("productPrice").textContent;
 
 let items = document.getElementById("items");
 
- $.ajax({
+if (productSize.includes("Product Options")) {
+
+    document.getElementById("message").textContent = "Select An Available Size";
+    document.getElementById("message").style.color = "red";
+    } else {
+
+              $.ajax({
               type : "POST",
               url :  "/checkout/add",
               data :{"productId" : productId, "productTitle" : productTitle, "productSize" : productSize, "productPrice" : productPrice},
               success : function(result) {
 
+               document.getElementById("message").textContent = "";
                items.textContent = result;
               }
             });
 
- }
+}
+
+}
 
