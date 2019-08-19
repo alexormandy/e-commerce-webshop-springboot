@@ -1,5 +1,8 @@
-function removeProduct(productIdentifier) {
+$(document).ready(function(){
+    updateTotals();
+})
 
+function removeProduct(productIdentifier) {
 let items = document.getElementById("items");
 
  $.ajax({
@@ -14,7 +17,6 @@ let items = document.getElementById("items");
 
               }
             });
-
  }
 
  function updateTotals() {
@@ -29,5 +31,4 @@ let items = document.getElementById("items");
 
                }
              });
-
  }

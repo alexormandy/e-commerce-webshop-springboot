@@ -27,8 +27,6 @@ public class CheckoutController {
         model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
         model.addAttribute("subTotal", checkoutService.calculateSubTotal(session));
 
-        updateBasketTotals(model, session);
-
         return "checkout";
     }
 
@@ -66,6 +64,10 @@ public class CheckoutController {
 
     @PostMapping("/updateTotals")
     public String updateBasketTotals(Model model, HttpSession session){
+
+        if (checkoutService.calculateNumberOfItemsInBag(session) == 0) {
+            return "fragments/fragments :: emptyBasket";
+        }
 
         model.addAttribute("basket", checkoutService.fetchBasket(session));
         model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
