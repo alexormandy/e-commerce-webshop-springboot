@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
-
 @Controller
 @RequestMapping("/checkout")
 public class CheckoutController {
@@ -40,6 +39,10 @@ public class CheckoutController {
 
         Integer itemsInBag = checkoutService.updateShoppingBasketValue(+1, session);
         String items = String.valueOf(itemsInBag);
+
+//        if (checkoutService.sizeChecker(productSize)) {
+//            productSize = null;
+//        }
 
         Double productPriceDouble = Double.parseDouble(productPrice);
         int productIdInt = Integer.parseInt(productId);

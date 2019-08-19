@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,6 @@ public class ProductController {
     @GetMapping
     public String getProductsAllPage (Model model) {
 
-//        List<ProductModel> productModelList = ;
         model.addAttribute("productModelList", productService.getAllProducts());
 
         return "productsAll";

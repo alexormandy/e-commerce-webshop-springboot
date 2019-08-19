@@ -1,6 +1,8 @@
 package com.webshop.webshop.service;
 
+import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.model.BagItemModel;
+import com.webshop.webshop.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class CheckoutService {
+
+    private DecimalFormat decimalFormat = new DecimalFormat("0.##");
 
     @Autowired
     public CheckoutService() {
@@ -54,6 +58,11 @@ public class CheckoutService {
         session.setAttribute("basket", basket);
     }
 
+    /**
+     * Lambda, finding product using its identifier and removing it from Array.
+     * @param productIdentifier
+     * @param session
+     */
     public void removeFromBasket(String productIdentifier,
                                  HttpSession session) {
 
@@ -95,8 +104,14 @@ public class CheckoutService {
             subtotal += bagItem.getProductPrice();
         }
 
-        DecimalFormat df = new DecimalFormat("0.##");
-        return df.format(subtotal);
+        return decimalFormat.format(subtotal);
+    }
+
+    public boolean sizeChecker(String productSize) {
+
+        if (productSize.equals("Product Options")) {
+        }
+        return true;
     }
 
 }
