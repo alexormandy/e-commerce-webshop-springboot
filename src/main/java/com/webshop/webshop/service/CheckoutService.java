@@ -1,19 +1,16 @@
 package com.webshop.webshop.service;
 
-import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.model.BagItemModel;
-import com.webshop.webshop.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CheckoutService {
 
-    private DecimalFormat decimalFormat = new DecimalFormat("0.##");
+//    private DecimalFormat decimalFormat = new DecimalFormat("0.##");
 
     @Autowired
     public CheckoutService() {
@@ -94,7 +91,7 @@ public class CheckoutService {
      * Loops through basket array and adds it back to object, adding up items based on .size()
      * @return
      */
-    public String calculateSubTotal(HttpSession session) {
+    public double calculateSubTotal(HttpSession session) {
         double subtotal = 0;
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
@@ -103,15 +100,12 @@ public class CheckoutService {
             BagItemModel bagItem = basket.get(i);
             subtotal += bagItem.getProductPrice();
         }
-
-        return decimalFormat.format(subtotal);
+        return subtotal;
     }
 
-    public boolean sizeChecker(String productSize) {
+    public double calculateGrandTotal(double subTotal, double deliveryCharge) {
 
-        if (productSize.equals("Product Options")) {
-        }
-        return true;
+        return subTotal + deliveryCharge;
     }
 
 }

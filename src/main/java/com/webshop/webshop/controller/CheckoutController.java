@@ -40,10 +40,6 @@ public class CheckoutController {
         Integer itemsInBag = checkoutService.updateShoppingBasketValue(+1, session);
         String items = String.valueOf(itemsInBag);
 
-//        if (checkoutService.sizeChecker(productSize)) {
-//            productSize = null;
-//        }
-
         Double productPriceDouble = Double.parseDouble(productPrice);
         int productIdInt = Integer.parseInt(productId);
         checkoutService.addToBasket(productIdInt, productTitle, productSize, productPriceDouble, session);
@@ -74,7 +70,15 @@ public class CheckoutController {
 
         model.addAttribute("basket", checkoutService.fetchBasket(session));
         model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
-        model.addAttribute("subTotal", checkoutService.calculateSubTotal(session));
+
+        double subTotal = checkoutService.calculateSubTotal(session);
+        model.addAttribute("subTotal", subTotal);
+
+        double deliveryCharge = 3.50D;
+        model.addAttribute("deliveryCharge", deliveryCharge);
+
+        double grandTotal = checkoutService.calculateGrandTotal(subTotal, deliveryCharge);
+        model.addAttribute("grandTotal", grandTotal);
 
         return "fragments/fragments :: basketTotals";
     }

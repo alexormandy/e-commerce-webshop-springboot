@@ -31,11 +31,6 @@ public class ProductService {
         return productDAO.findAll();
     }
 
-    /**
-     * Reg ex split by "," into a List of Strings
-     * @param productModel
-     * @return
-     */
     public List getSizeDetails(ProductModel productModel){
 
         String productSize = productModel.getProductSizes();

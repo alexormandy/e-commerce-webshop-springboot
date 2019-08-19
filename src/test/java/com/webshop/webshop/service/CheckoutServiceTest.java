@@ -49,4 +49,10 @@ public class CheckoutServiceTest {
         assertEquals(3, mockBasket.get(0).getProductId());
     }
 
+    @Test
+    public void test3 () {
+
+        double subTotal = checkoutService.calculateSubTotal(session);
+        assertEquals(28, subTotal);
+    }
 }

@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping
     public String getProductsAllPage (Model model) {
 
-        model.addAttribute("productModelList", productService.getAllProducts());
+        model.addAttribute("allProducts", productService.getAllProducts());
 
         return "productsAll";
     }
@@ -35,14 +35,14 @@ public class ProductController {
     @GetMapping("/{id}")
     public String getProductsByIDPage(@PathVariable String id, Model model) {
 
-        ProductModel productModelFind = productService.getSingleProduct(id);
+        ProductModel productFindById = productService.getSingleProduct(id);
 
-        List<ProductModel> productModelList = new ArrayList<>();
-        productModelList.add(productModelFind);
-        model.addAttribute("productModelList", productModelList);
+        List<ProductModel> productById = new ArrayList<>();
+        productById.add(productFindById);
+        model.addAttribute("productById", productById);
 
-        List productSizeList = productService.getSizeDetails(productModelFind);
-        model.addAttribute("productSizeList", productSizeList);
+        List productByIdSizes = productService.getSizeDetails(productFindById);
+        model.addAttribute("productByIdSizes", productByIdSizes);
 
         return "productsById";
     }

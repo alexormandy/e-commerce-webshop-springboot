@@ -16,7 +16,7 @@
 
 <div class="container">
     <div class="row align-items-center">
-        <div class="col" th:each="product: ${productModelList}">
+        <div class="col" th:each="product: ${productById}">
             <a th:href="@{'/products/' + ${product.id}}"><h3 id="productTitle" th:text="${product.name}">Product Name</h3></a>
             <a th:href="@{'/products/' + ${product.id}}"><img height="300" length="600" th:src="@{'/products/images/' + ${product.pictureUrl}}"/></a>
             <h4 th:text="${product.description}">Product Description</h4>
@@ -29,7 +29,7 @@
                     Product Options
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" th:each="option: ${productSizeList}" th:text="${option}" href="#">option</a>
+                    <a class="dropdown-item" th:each="option: ${productByIdSizes}" th:text="${option}" href="#">option</a>
                 </div>
             </div>
             <br>
