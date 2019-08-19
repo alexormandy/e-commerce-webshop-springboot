@@ -2,7 +2,6 @@ package com.webshop.webshop.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "product")

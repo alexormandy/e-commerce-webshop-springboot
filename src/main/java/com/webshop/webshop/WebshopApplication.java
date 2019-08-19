@@ -44,5 +44,4 @@ public class WebshopApplication {
 //		productDAO.saveProduct(product5);
 //		productDAO.saveProduct(product6);
 	}
-
 }

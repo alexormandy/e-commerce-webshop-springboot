@@ -10,8 +10,6 @@ import java.util.List;
 @Service
 public class CheckoutService {
 
-//    private DecimalFormat decimalFormat = new DecimalFormat("0.##");
-
     @Autowired
     public CheckoutService() {
     }
