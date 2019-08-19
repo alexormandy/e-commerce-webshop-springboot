@@ -8,8 +8,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="/js/checkout.js"></script>
-<!--<script src="https://kit.fontawesome.com/1c1da2d8bf.js"></script>-->
 </head>
+
 <body>
 
 <nav th:insert="fragments/fragments :: header"></nav>
@@ -17,37 +17,31 @@
 
 <div class="container">
     <h2>Checkout</h2>
-    <br>
-    <table class="table">
+    <br id="insert">
+    <table id="basketTable" class="table">
         <thead>
         <tr>
-            <th scope="col">Product ID</th>
             <th scope="col">Product Title</th>
+            <th scope="col">Product ID</th>
             <th scope="col">Product Size</th>
             <th scope="col">Product Price</th>
             <th scope="col">Remove Product</th>
         </tr>
         </thead>
         <tbody>
-        <tr id="productRow" th:each="basket: ${basket}">
-            <th id="productId" scope="row" th:text="${basket.productId}" th:value="${basket.productIdentifier}"></th>
+        <tr th:each="basket: ${basket}">
             <td th:text="${basket.productTitle}"></td>
+            <th id="productId" scope="row" th:text="${basket.productId}" th:value="${basket.productIdentifier}"></th>
             <td th:text="${basket.productSize}"></td>
             <td>£<span th:text="${basket.productPrice}"></span></td>
             <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
         </tr>
-        <tr id="basketTotals">
-        <table id="basketTable" th:fragment="basketTotals">
-            <tr><th id="numberOfItems" scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
-            <tr><th id="subTotal" scope="col">Subtotal: £<span th:text="${subTotal}"></span></th></tr>
-            <tr><th id="delivery" scope="col">Delivery: £<span th:text="${deliveryCharge}"></span></th></tr>
-            <tr><th id="grandTotal" scope="col">Grand Total: £<span th:text="${grandTotal}"></span></th></tr>
-        </table>
-        </tr>
+        <tr><th scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
+        <tr><th scope="col">Subtotal: £<span th:text="${subTotal}"></span></th></tr>
+        <tr><th scope="col">Delivery: £<span th:text="${deliveryCharge}"></span></th></tr>
+        <th scope="col">Grand Total: £<span th:text="${grandTotal}"></span></th>
         </tbody>
     </table>
-
-
 </div>
 
 </body>

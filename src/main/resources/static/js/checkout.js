@@ -25,7 +25,7 @@ let items = document.getElementById("items");
                success : function(result) {
 
                 $('#basketTable').remove();
-                $(result).insertAfter("#basketTotals");
+                $(result).insertAfter("#insert");
 
                }
              });
