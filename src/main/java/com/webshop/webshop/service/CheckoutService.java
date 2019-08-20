@@ -1,10 +1,12 @@
 package com.webshop.webshop.service;
 
 import com.webshop.webshop.model.BagItemModel;
+import org.hibernate.mapping.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -46,10 +48,25 @@ public class CheckoutService {
                             HttpSession session) {
 
         checkIfBagIsEmpty(session);
+        setProductQuantity(session, bagItemModel);
+    }
+
+    public void setProductQuantity (HttpSession session, BagItemModel bagItemModel) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+
+        int index = basket.indexOf(bagItemModel.getProductId());
+        System.out.println(index);
+
         basket.add(bagItemModel);
 
+//        if (index == -1 ) {
+//            basket.add(bagItemModel);
+//        } else {
+//            BagItemModel bagItem = basket.get(index);
+//            bagItem.setProductQuantity(+1);
+//            basket.add(bagItem);
+//        }
         session.setAttribute("basket", basket);
     }
 
