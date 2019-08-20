@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CheckoutServiceTest {
@@ -70,5 +71,14 @@ public class CheckoutServiceTest {
         int subTotalInt = (int) subTotal;
 
         assertEquals(28, subTotalInt);
+    }
+
+    @Test
+    public void givenItemsInBagIs5WhenOneIsAddedThenItemsInBagIs6 () {
+
+        given(mockSession.getAttribute("itemsInBag")).willReturn(5);
+        int mockItemsInBag = checkoutService.updateShoppingBasketValue(1, mockSession);
+
+        assertEquals(6, mockItemsInBag);
     }
 }

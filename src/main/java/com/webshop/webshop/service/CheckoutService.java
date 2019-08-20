@@ -14,6 +14,12 @@ public class CheckoutService {
     public CheckoutService() {
     }
 
+    /**
+     * Value is parameter for removing -1 and adding items +1
+     * @param value
+     * @param session
+     * @return
+     */
     public int updateShoppingBasketValue(int value, HttpSession session) {
 
         Integer itemsInBag = (Integer) session.getAttribute("itemsInBag");
@@ -27,7 +33,7 @@ public class CheckoutService {
         return itemsInBag;
     }
 
-    public void checkBagIsEmpty (HttpSession session) {
+    public void checkIfBagIsEmpty(HttpSession session) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         if (basket == null) {
@@ -39,7 +45,7 @@ public class CheckoutService {
     public void addToBasket(BagItemModel bagItemModel,
                             HttpSession session) {
 
-        checkBagIsEmpty(session);
+        checkIfBagIsEmpty(session);
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         basket.add(bagItemModel);
@@ -74,7 +80,7 @@ public class CheckoutService {
 
     public int calculateNumberOfItemsInBag(HttpSession session) {
 
-        checkBagIsEmpty(session);
+        checkIfBagIsEmpty(session);
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         return basket.size();
     }

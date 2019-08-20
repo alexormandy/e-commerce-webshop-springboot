@@ -2,7 +2,6 @@ package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.BagItemModel;
 import com.webshop.webshop.service.CheckoutService;
-import org.hibernate.mapping.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

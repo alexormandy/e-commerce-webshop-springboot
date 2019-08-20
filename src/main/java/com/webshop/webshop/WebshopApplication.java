@@ -1,13 +1,10 @@
 package com.webshop.webshop;
 
 import com.webshop.webshop.dao.ProductDAO;
-import com.webshop.webshop.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class WebshopApplication {
