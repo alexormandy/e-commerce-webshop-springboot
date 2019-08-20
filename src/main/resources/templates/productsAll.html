@@ -10,14 +10,14 @@
 </head>
 <body>
 
-<nav th:insert="fragments/fragments :: header"></nav>
+<nav th:insert="fragments/header :: header"></nav>
 <br>
 
 <div class="container" th:fragment="productsAll">
     <h2>All Products</h2>
     <br>
     <div class="row align-items-center">
-    <div class="col-sm-4" th:each="product: ${allProducts}">
+    <div class="col-sm-4" th:each="product: ${productsAll}">
         <a th:href="@{'/products/' + ${product.id}}"><h3 th:text="${product.name}">Product Name</h3></a>
         <a th:href="@{'/products/' + ${product.id}}"><img height="300" length="600" th:src="@{'/products/images/' + ${product.pictureUrl}}"/></a>
         <h4 th:text="${product.description}">Product Description</h4>

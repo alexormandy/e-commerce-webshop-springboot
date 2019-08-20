@@ -1,0 +1,24 @@
+<table id="basketTable" class="table" th:fragment="basketTotals" xmlns:th="http://www.w3.org/1999/xhtml">
+    <thead>
+    <tr>
+        <th scope="col">Product Title</th>
+        <th scope="col">Product ID</th>
+        <th scope="col">Product Size</th>
+        <th scope="col">Product Price</th>
+        <th scope="col">Remove Product</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="basket: ${basket}">
+        <td th:text="${basket.productTitle}"></td>
+        <th id="productId" scope="row" th:text="${basket.productId}" th:value="${basket.productIdentifier}"></th>
+        <td th:text="${basket.productSize}"></td>
+        <td>£<span th:text="${#numbers.formatDecimal(basket.productPrice, 2, 2)}"></span></td>
+        <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
+    </tr>
+    <tr><th scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
+    <tr><th scope="col">Subtotal: £<span th:text="${#numbers.formatDecimal(subTotal, 2, 2)}"></span></th></tr>
+    <tr><th scope="col">Delivery: £<span th:text="${#numbers.formatDecimal(deliveryCharge, 1, 2)}"></span></th></tr>
+    <th scope="col">Grand Total: £<span th:text="${#numbers.formatDecimal(grandTotal, 2, 2)}"></span></th>
+    </tbody>
+</table>

@@ -14,26 +14,7 @@ public class CheckoutService {
     public CheckoutService() {
     }
 
-    /**
-     * Value is parameter for removing -1 and adding items +1
-     * @param value
-     * @param session
-     * @return
-     */
-    public int updateShoppingBasketValue(int value, HttpSession session) {
-
-        Integer itemsInBag = (Integer) session.getAttribute("itemsInBag");
-        if (itemsInBag != null) {
-            itemsInBag += value;
-        } else {
-            itemsInBag = 1;
-        }
-
-        session.setAttribute("itemsInBag", itemsInBag);
-        return itemsInBag;
-    }
-
-    public void checkIfBagIsEmpty(HttpSession session) {
+    public void checkIfSessionIsEmpty(HttpSession session) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         if (basket == null) {
@@ -45,7 +26,7 @@ public class CheckoutService {
     public void addToBasket(BagItemModel bagItemModel,
                             HttpSession session) {
 
-        checkIfBagIsEmpty(session);
+        checkIfSessionIsEmpty(session);
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         basket.add(bagItemModel);
@@ -53,11 +34,6 @@ public class CheckoutService {
         session.setAttribute("basket", basket);
     }
 
-    /**
-     * Lambda, finding product using its identifier and removing it from Array.
-     * @param productIdentifier
-     * @param session
-     */
     public void removeFromBasket(String productIdentifier,
                                  HttpSession session) {
 
@@ -80,15 +56,11 @@ public class CheckoutService {
 
     public int calculateNumberOfItemsInBag(HttpSession session) {
 
-        checkIfBagIsEmpty(session);
+        checkIfSessionIsEmpty(session);
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         return basket.size();
     }
 
-    /**
-     * Loops through basket array and adds it back to object, adding up items based on .size()
-     * @return
-     */
     public double calculateSubTotal(HttpSession session) {
         double subtotal = 0;
 

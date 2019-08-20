@@ -11,7 +11,8 @@
 </head>
 <body>
 
-<nav th:insert="fragments/fragments :: header"></nav>
+<div id="insert"/>
+<nav id="header" th:insert="fragments/header :: header"></nav>
 <br>
 
 <div class="container">
@@ -33,7 +34,7 @@
                 </div>
             </div>
             <br>
-            <button type="button" class="btn btn-success" onclick="myFunction(this)">Add To Checkout</button>
+            <button type="button" class="btn btn-success" onclick="submit(this)">Add To Checkout</button>
             <div class="w-100"></div>
         </div>
     </div>

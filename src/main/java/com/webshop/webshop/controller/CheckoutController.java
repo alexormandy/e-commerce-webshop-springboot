@@ -38,17 +38,15 @@ public class CheckoutController {
                                      @RequestParam(name= "productPrice") String productPrice,
                                      HttpSession session){
 
-        Integer itemsInBag = checkoutService.updateShoppingBasketValue(+1, session);
-        String items = String.valueOf(itemsInBag);
-
         Double productPriceDouble = Double.parseDouble(productPrice);
         int productIdInt = Integer.parseInt(productId);
 
         BagItemModel bagItemModel = new BagItemModel(productIdInt, productTitle, productSize, productPriceDouble);
 
         checkoutService.addToBasket(bagItemModel, session);
+        session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
 
-        return items;
+        return "fragments/header :: header";
     }
 
     @ResponseBody
@@ -58,18 +56,16 @@ public class CheckoutController {
 
         System.out.println(productIdentifier);
         checkoutService.removeFromBasket(productIdentifier, session);
+        session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
 
-        Integer itemsInBag = checkoutService.updateShoppingBasketValue(-1, session);
-        String items = String.valueOf(itemsInBag);
-
-        return items;
+        return "fragments/header :: header";
     }
 
     @PostMapping("/updateTotals")
     public String updateBasketTotals(Model model, HttpSession session){
 
         if (checkoutService.calculateNumberOfItemsInBag(session) == 0) {
-            return "fragments/fragments :: emptyBasket";
+            return "fragments/emptyBasket :: emptyBasket";
         }
 
         model.addAttribute("basket", checkoutService.fetchBasket(session));
@@ -84,7 +80,7 @@ public class CheckoutController {
         double grandTotal = checkoutService.calculateGrandTotal(subTotal, deliveryCharge);
         model.addAttribute("grandTotal", grandTotal);
 
-        return "fragments/fragments :: basketTotals";
+        return "fragments/basketTotals :: basketTotals";
     }
 
 }
