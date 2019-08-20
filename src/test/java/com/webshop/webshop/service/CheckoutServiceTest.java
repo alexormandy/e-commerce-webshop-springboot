@@ -3,56 +3,72 @@ package com.webshop.webshop.service;
 import com.webshop.webshop.model.BagItemModel;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpSession;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.BDDMockito.given;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CheckoutServiceTest {
 
-    private CheckoutService checkoutService;
+    @Mock
+    private HttpSession mockSession;
+
+    private ProductService productService;
     private int productIdentifier;
-    private MockHttpSession session;
+    private CheckoutService checkoutService;
+    private List<BagItemModel> mockBasket;
+
+    private BagItemModel testBagItemModelA;
+    private BagItemModel testBagItemModelB;
+
+    @Mock
+    private BagItemModel mockBagItemModelC;
 
     @Before
     public void setUp() {
+
         checkoutService = new CheckoutService();
-        session = new MockHttpSession();
 
-        checkoutService.addToBasket(2, "Test Item", "Medium", 12D, session);
-        checkoutService.addToBasket(3, "Test Item 2", "Large", 16D, session);
-
-        List<BagItemModel> mockBasket = (List<BagItemModel>) session.getAttribute("basket");
-        productIdentifier = mockBasket.get(0).getProductIdentifier();
-
+        testBagItemModelA = new BagItemModel(2, "Test Item", "Medium", 12D);
+        testBagItemModelB = new BagItemModel(3, "Test Item 2", "Large", 16D);
     }
 
     // TODO: Given, When, Then
     @Test
     public void givenBasketSizeIsTwoWhenOneItemIsRemovedFromBasketThenNewBasketSizeIsOne () {
 
-        List<BagItemModel> mockBasket = (List<BagItemModel>) session.getAttribute("basket");
+        mockBasket = new ArrayList<>();
+        mockBasket.add(testBagItemModelA);
+        mockBasket.add(mockBagItemModelC);
+
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
         assertEquals(2, mockBasket.size());
 
-        checkoutService.removeFromBasket(String.valueOf(productIdentifier), session);
+        given(mockBagItemModelC.getProductTitle()).willReturn("ProdTitleC");
 
-        mockBasket = (List<BagItemModel>) session.getAttribute("basket");
+        checkoutService.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), mockSession);
         assertEquals(1, mockBasket.size());
+        assertEquals("ProdTitleC", mockBagItemModelC.getProductTitle());
     }
 
     @Test
-    public void givenProductIdIsTwoWhenProductIdTwoIsRemovedThenPositionZeroIsNowProductIdThree() {
+    public void givenTwoProductsWhenSubTotalIsCalculatedThenProductsAreAddedTogether () {
 
-        List<BagItemModel> mockBasket = (List<BagItemModel>) session.getAttribute("basket");
+        mockBasket = new ArrayList<>();
+        mockBasket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelB);
 
-        assertEquals(2, mockBasket.get(0).getProductId());
-        checkoutService.removeFromBasket(String.valueOf(productIdentifier), session);
-        assertEquals(3, mockBasket.get(0).getProductId());
-    }
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
-    @Test
-    public void test3 () {
+        double subTotal = checkoutService.calculateSubTotal(mockSession);
 
-        double subTotal = checkoutService.calculateSubTotal(session);
-        assertEquals(28, subTotal);
+        int subTotalInt = (int) subTotal;
+
+        assertEquals(28, subTotalInt);
     }
 }

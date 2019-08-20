@@ -30,22 +30,16 @@ public class CheckoutService {
     public void checkBagIsEmpty (HttpSession session) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-        if (basket != null) {
-
-        } else {
+        if (basket == null) {
             List<BagItemModel> newBasket = new ArrayList<>();
             session.setAttribute("basket", newBasket);
         }
     }
 
-    public void addToBasket(int productId,
-                            String productTitle,
-                            String productSize,
-                            Double productPrice,
+    public void addToBasket(BagItemModel bagItemModel,
                             HttpSession session) {
 
         checkBagIsEmpty(session);
-        BagItemModel bagItemModel = new BagItemModel(productId, productTitle, productSize, productPrice);
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
         basket.add(bagItemModel);

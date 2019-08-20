@@ -1,6 +1,8 @@
 package com.webshop.webshop.controller;
 
+import com.webshop.webshop.model.BagItemModel;
 import com.webshop.webshop.service.CheckoutService;
+import org.hibernate.mapping.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +44,10 @@ public class CheckoutController {
 
         Double productPriceDouble = Double.parseDouble(productPrice);
         int productIdInt = Integer.parseInt(productId);
-        checkoutService.addToBasket(productIdInt, productTitle, productSize, productPriceDouble, session);
+
+        BagItemModel bagItemModel = new BagItemModel(productIdInt, productTitle, productSize, productPriceDouble);
+
+        checkoutService.addToBasket(bagItemModel, session);
 
         return items;
     }

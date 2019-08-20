@@ -17,6 +17,9 @@ public class ProductService {
         this.productDAO = productDAO;
     }
 
+    public ProductService() {
+    }
+
     public ProductModel getSingleProduct(String id){
 
         Long idLong = Long.parseLong(id);
