@@ -1,12 +1,10 @@
 package com.webshop.webshop.service;
 
 import com.webshop.webshop.model.BagItemModel;
-import org.hibernate.mapping.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -18,6 +16,7 @@ public class CheckoutService {
 
     /**
      * Value is parameter for removing -1 and adding items +1
+     *
      * @param value
      * @param session
      * @return
@@ -35,38 +34,46 @@ public class CheckoutService {
         return itemsInBag;
     }
 
-    public void checkIfBagIsEmpty(HttpSession session) {
+    public boolean checkIfBagIsEmpty(HttpSession session) {
 
+        boolean responseValue=false;
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+
         if (basket == null) {
             List<BagItemModel> newBasket = new ArrayList<>();
             session.setAttribute("basket", newBasket);
+            responseValue=true;
+
         }
+        return responseValue;
     }
 
     public void addToBasket(BagItemModel bagItemModel,
                             HttpSession session) {
 
-        checkIfBagIsEmpty(session);
-        setProductQuantity(session, bagItemModel);
+        System.out.println(checkIfBagIsEmpty(session));
+        if (checkIfBagIsEmpty(session)){
+            List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+            basket.add(bagItemModel);
+            session.setAttribute("basket", basket);
+        } else {
+            setProductQuantity(session, bagItemModel);
+        }
     }
 
-    public void setProductQuantity (HttpSession session, BagItemModel bagItemModel) {
+    public void setProductQuantity(HttpSession session, BagItemModel bagItemModel) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
 
-        int index = basket.indexOf(bagItemModel.getProductId());
-        System.out.println(index);
+        for (BagItemModel basketItem : basket)
+            if (basketItem.getProductId() == bagItemModel.getProductId()) {
+                int index = basket.indexOf(basketItem.getProductId());
+                BagItemModel keep = basket.get(index);
+                basket.remove(index);
+                keep.setProductQuantity(+1);
+                basket.add(keep);
+            } else basket.add(bagItemModel);
 
-        basket.add(bagItemModel);
-
-//        if (index == -1 ) {
-//            basket.add(bagItemModel);
-//        } else {
-//            BagItemModel bagItem = basket.get(index);
-//            bagItem.setProductQuantity(+1);
-//            basket.add(bagItem);
-//        }
         session.setAttribute("basket", basket);
     }
 
