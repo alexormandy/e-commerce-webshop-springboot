@@ -14,8 +14,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
             </li>
-            <li class="nav-item">
-                <a id="items" class="nav-link" th:text="${session.itemsInBag} ? ${session.itemsInBag} :''"></a>
+            <li id="items" class="nav-item">
+                <a id="number" th:insert="fragments/itemNumber :: itemNumber"></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -24,3 +24,4 @@
         </form>
     </div>
 </nav>
+

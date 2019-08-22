@@ -3,7 +3,6 @@ $(function(){
     $(".dropdown-item").click(function(){
       $(".btn:first-child").text($(this).text());
       $(".btn:first-child").val($(this).text());
-
    });
 });
 
@@ -18,7 +17,6 @@ function submit(button) {
 
         document.getElementById("message").textContent = "Select An Available Size";
         document.getElementById("message").style.color = "red";
-
     } else {
 
     $.ajax({
@@ -27,12 +25,11 @@ function submit(button) {
     data :{"productId" : productId, "productTitle" : productTitle, "productSize" : productSize, "productPrice" : productPrice},
     success : function(result) {
 
-        $('#header').remove();
-        $(result).insertAfter("#insert");
+        $('#number').remove();
+        $(result).insertAfter("#items");
         document.getElementById("message").textContent = "";
     }
     });
-
 }
 
 }

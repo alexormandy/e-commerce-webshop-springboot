@@ -5,30 +5,30 @@ $(document).ready(function(){
 function removeProduct(productIdentifier) {
 let items = document.getElementById("items");
 
- $.ajax({
-              type : "POST",
-              url :  "/checkout/remove",
-              data :{"productIdentifier" : productIdentifier},
-              success : function(result) {
+    $.ajax({
+    type : "POST",
+    url :  "/checkout/remove",
+    data :{"productIdentifier" : productIdentifier},
+    success : function(result) {
 
-              items.textContent = result;
-              $('#productRow').remove();
-              updateTotals();
+        items.textContent = result;
+        $('#productRow').remove();
+        updateTotals();
 
-              }
-            });
- }
+}
+});
+}
 
- function updateTotals() {
+function updateTotals() {
 
-  $.ajax({
-               type : "POST",
-               url :  "/checkout/updateTotals",
-               success : function(result) {
+    $.ajax({
+    type : "POST",
+    url :  "/checkout/updateTotals",
+    success : function(result) {
 
-                $('#basketTable').remove();
-                $(result).insertAfter("#insert");
+        $('#basketTable').remove();
+        $(result).insertAfter("#insert");
 
-               }
-             });
- }
+}
+});
+}
