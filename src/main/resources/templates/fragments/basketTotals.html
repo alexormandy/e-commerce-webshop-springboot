@@ -4,6 +4,7 @@
         <th scope="col">Product Title</th>
         <th scope="col">Product ID</th>
         <th scope="col">Product Size</th>
+        <th scope="col">Product Quantity</th>
         <th scope="col">Product Price</th>
         <th scope="col">Remove Product</th>
     </tr>
@@ -13,6 +14,7 @@
         <td th:text="${basket.productTitle}"></td>
         <th id="productId" scope="row" th:text="${basket.productId}" th:value="${basket.productIdentifier}"></th>
         <td th:text="${basket.productSize}"></td>
+        <td th:text="${basket.productQuantity}"></td>
         <td>£<span th:text="${#numbers.formatDecimal(basket.productPrice, 2, 2)}"></span></td>
         <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
     </tr>

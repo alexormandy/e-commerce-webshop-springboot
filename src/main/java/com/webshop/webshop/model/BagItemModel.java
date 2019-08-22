@@ -16,6 +16,8 @@ public class BagItemModel {
 
     private String productSize;
 
+    private int productQuantity;
+
     private Double productPrice;
 
     public BagItemModel(int productId, String productTitle, String productSize, Double productPrice) {
@@ -25,6 +27,7 @@ public class BagItemModel {
         this.productTitle = productTitle;
         this.productSize = productSize;
         this.productPrice = productPrice;
+        productQuantity = 1;
     }
 
     public BagItemModel() {
@@ -68,5 +71,13 @@ public class BagItemModel {
 
     public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public int getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
     }
 }

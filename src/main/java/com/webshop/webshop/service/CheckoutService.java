@@ -14,22 +14,49 @@ public class CheckoutService {
     public CheckoutService() {
     }
 
-    public void checkIfSessionIsEmpty(HttpSession session) {
+    public boolean checkIfSessionIsEmpty(HttpSession session) {
+        boolean empty;
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-        if (basket == null) {
+        if (basket == null || basket.isEmpty()) {
             List<BagItemModel> newBasket = new ArrayList<>();
             session.setAttribute("basket", newBasket);
-        }
+            empty = true;
+        } else empty = false;
+        return empty;
     }
 
     public void addToBasket(BagItemModel bagItemModel,
                             HttpSession session) {
 
-        checkIfSessionIsEmpty(session);
+        System.out.println(checkIfSessionIsEmpty(session));
+        if (checkIfSessionIsEmpty(session)){
+
+            List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+            basket.add(bagItemModel);
+            session.setAttribute("basket", basket);
+
+        } else {
+            setProductQuantity(session, bagItemModel);
+        }
+    }
+
+    public void setProductQuantity(HttpSession session, BagItemModel bagItemModel) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-        basket.add(bagItemModel);
+
+        for (BagItemModel basketItem : basket)
+            if (basketItem.getProductId() == bagItemModel.getProductId()) {
+
+                int index = basket.indexOf(basketItem);
+                BagItemModel keep = basket.get(index);
+                basket.remove(index);
+                System.out.println("Pre: "+keep.getProductQuantity());
+                keep.setProductQuantity(keep.getProductQuantity()+1);
+                System.out.println("Post: "+keep.getProductQuantity());
+                basket.add(keep);
+
+            } else basket.add(bagItemModel);
 
         session.setAttribute("basket", basket);
     }
