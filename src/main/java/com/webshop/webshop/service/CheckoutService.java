@@ -46,20 +46,31 @@ public class CheckoutService {
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
 
         for (BagItemModel basketItem : basket)
-            if (basketItem.getProductId() == bagItemModel.getProductId()) {
 
-                int index = basket.indexOf(basketItem);
-                BagItemModel keep = basket.get(index);
-                basket.remove(index);
-                System.out.println("Pre: "+keep.getProductQuantity());
-                keep.setProductQuantity(keep.getProductQuantity()+1);
-                System.out.println("Post: "+keep.getProductQuantity());
-                basket.add(keep);
+            if (basketItem == null) {
 
-            } else basket.add(bagItemModel);
+            }
+            else if (basketItem.getProductId() == bagItemModel.getProductId()) {
 
-        session.setAttribute("basket", basket);
+                    int index = basket.indexOf(basketItem);
+                    BagItemModel keep = basket.get(index);
+                    basket.remove(index);
+
+                    System.out.println("Pre: " + keep.getProductQuantity());
+
+                    keep.setProductQuantity(keep.getProductQuantity() + 1);
+
+                    System.out.println("Post: " + keep.getProductQuantity());
+
+                    basket.add(keep);
+
+                }  else {
+
+                basket.add(bagItemModel);
+                }
+                session.setAttribute("basket", basket);
     }
+
 
     public void removeFromBasket(String productIdentifier,
                                  HttpSession session) {
