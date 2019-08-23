@@ -30,7 +30,6 @@ public class CheckoutService {
     public void addToBasket(BagItemModel bagItemModel,
                             HttpSession session) {
 
-        System.out.println(checkIfSessionIsEmpty(session));
         if (checkIfSessionIsEmpty(session)){
 
             List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");

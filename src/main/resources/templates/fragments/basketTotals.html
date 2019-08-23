@@ -6,6 +6,7 @@
         <th scope="col">Product Size</th>
         <th scope="col">Product Quantity</th>
         <th scope="col">Product Price</th>
+        <th scope="col"></th>
         <th scope="col">Remove Product</th>
     </tr>
     </thead>
@@ -16,6 +17,11 @@
         <td th:text="${basket.productSize}"></td>
         <td th:text="${basket.productQuantity}"></td>
         <td>£<span th:text="${#numbers.formatDecimal(basket.productPrice, 2, 2)}"></span></td>
+        <td class="form-group">
+            <select class="form-control" id="exampleFormControlSelect1" th:each="quantity: ${basket.productQuantity}" th:if="${quantity &gt; 1}">
+                <option th:text="${quantity}"></option>
+            </select>
+        </td>
         <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
     </tr>
     <tr><th scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
