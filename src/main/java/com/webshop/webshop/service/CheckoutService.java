@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -41,33 +42,56 @@ public class CheckoutService {
         }
     }
 
-    public void setProductQuantity(HttpSession session, BagItemModel bagItemModel) {
+    public void setProductQuantity(HttpSession session, BagItemModel bagItemToAdd) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        boolean addNewProduct = false;
+        boolean duplicateProduct = false;
 
-        for (BagItemModel basketItem : basket)
+        Iterator iterator = basket.iterator();
+        while (iterator.hasNext()) {
+            BagItemModel existingBagItem = (BagItemModel) iterator.next();
 
-            if (basketItem == null) {
-
+            if (existingBagItem.getProductId() == bagItemToAdd.getProductId()
+                    && existingBagItem.getProductSize().equals(bagItemToAdd.getProductSize())) {
+                int currentQuantity = existingBagItem.getProductQuantity();
+                existingBagItem.setProductQuantity(currentQuantity +1);
+                duplicateProduct = true;
+                addNewProduct = false;
             }
-            else if (basketItem.getProductId() == bagItemModel.getProductId()) {
-
-                    int index = basket.indexOf(basketItem);
-                    BagItemModel keep = basket.get(index);
-                    basket.remove(index);
-
-                    System.out.println("Pre: " + keep.getProductQuantity());
-
-                    keep.setProductQuantity(keep.getProductQuantity() + 1);
-
-                    System.out.println("Post: " + keep.getProductQuantity());
-
-                    basket.add(keep);
-
-                }  else {
-
-                basket.add(bagItemModel);
+            else {
+                if(!duplicateProduct) {
+                    addNewProduct = true;
                 }
+            }
+        }
+
+        if(addNewProduct) {
+            basket.add(bagItemToAdd);
+        }
+
+
+
+//            if (basketItem == null) {
+//
+//            }
+//            else if (basketItem.getProductId() == bagItemModel.getProductId()) {
+//
+//                    int index = basket.indexOf(basketItem);
+//                    BagItemModel keep = basket.get(index);
+//                    basket.remove(index);
+//
+//                    System.out.println("Pre: " + keep.getProductQuantity());
+//
+//                    keep.setProductQuantity(keep.getProductQuantity() + 1);
+//
+//                    System.out.println("Post: " + keep.getProductQuantity());
+//
+//                    basket.add(keep);
+//            }  else {
+//
+//                basket.add(bagItemModel);
+//                }
                 session.setAttribute("basket", basket);
     }
 
