@@ -30,6 +30,7 @@ public class CheckoutController {
         return "checkout";
     }
 
+    @ResponseBody
     @PostMapping("/add")
     public String addProductToBasket(@RequestParam(name= "productId") String productId,
                                      @RequestParam(name= "productTitle") String productTitle,
@@ -45,9 +46,12 @@ public class CheckoutController {
         checkoutService.addToBasket(bagItemModel, session);
         session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
 
-        return "fragments/header :: itemNumber";
+        String itemsInBag = String.valueOf(checkoutService.calculateNumberOfItemsInBag(session));
+
+        return itemsInBag;
     }
 
+    @ResponseBody
     @PostMapping("/remove")
     public String addProductToBasket(@RequestParam(name= "productIdentifier") String productIdentifier,
                                      HttpSession session){
@@ -56,7 +60,9 @@ public class CheckoutController {
         checkoutService.removeFromBasket(productIdentifier, session);
         session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
 
-        return "fragments/header :: itemNumber";
+        String itemsInBag = String.valueOf(checkoutService.calculateNumberOfItemsInBag(session));
+
+        return itemsInBag;
     }
 
     @PostMapping("/updateTotals")

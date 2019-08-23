@@ -69,32 +69,8 @@ public class CheckoutService {
         if(addNewProduct) {
             basket.add(bagItemToAdd);
         }
-
-
-
-//            if (basketItem == null) {
-//
-//            }
-//            else if (basketItem.getProductId() == bagItemModel.getProductId()) {
-//
-//                    int index = basket.indexOf(basketItem);
-//                    BagItemModel keep = basket.get(index);
-//                    basket.remove(index);
-//
-//                    System.out.println("Pre: " + keep.getProductQuantity());
-//
-//                    keep.setProductQuantity(keep.getProductQuantity() + 1);
-//
-//                    System.out.println("Post: " + keep.getProductQuantity());
-//
-//                    basket.add(keep);
-//            }  else {
-//
-//                basket.add(bagItemModel);
-//                }
-                session.setAttribute("basket", basket);
+        session.setAttribute("basket", basket);
     }
-
 
     public void removeFromBasket(String productIdentifier,
                                  HttpSession session) {
@@ -117,10 +93,16 @@ public class CheckoutService {
     }
 
     public int calculateNumberOfItemsInBag(HttpSession session) {
+        int total = 0;
 
         checkIfSessionIsEmpty(session);
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-        return basket.size();
+
+        for (int i = 0; i < basket.size(); i++) {
+            BagItemModel bagItem = basket.get(i);
+            total += bagItem.getProductQuantity();
+        }
+        return total;
     }
 
     public double calculateSubTotal(HttpSession session) {
@@ -130,7 +112,7 @@ public class CheckoutService {
 
         for (int i = 0; i < basket.size(); i++) {
             BagItemModel bagItem = basket.get(i);
-            subtotal += bagItem.getProductPrice();
+            subtotal += bagItem.getProductPrice() * bagItem.getProductQuantity();
         }
         return subtotal;
     }

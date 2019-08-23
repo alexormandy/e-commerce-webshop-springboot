@@ -23,11 +23,14 @@ function submit(button) {
     type : "POST",
     url :  "/checkout/add",
     data :{"productId" : productId, "productTitle" : productTitle, "productSize" : productSize, "productPrice" : productPrice},
-    success : function(result) {
+    success : function(itemsInBag) {
 
-        $('#number').remove();
-        $(result).insertAfter("#items");
+        document.getElementById("number").innerHTML = itemsInBag;
+
         document.getElementById("message").textContent = "";
+        document.getElementById("message").textContent = "Added to basket!";
+        document.getElementById("message").style.color = "green";
+        setTimeout(function(){ document.getElementById("message").textContent = ""; }, 1000);
     }
     });
 }
