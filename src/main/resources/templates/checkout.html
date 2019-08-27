@@ -38,8 +38,8 @@
             <td th:text="${basket.productQuantity}"></td>
             <td>£<span th:text="${#numbers.formatDecimal(basket.productPrice, 2, 2)}"></span></td>
             <td class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1" th:each="quantity: ${basket.productQuantity}" th:if="${quantity &gt; 1}">
-                    <option th:text="${quantity}"></option>
+                <select class="form-control" id="exampleFormControlSelect1" >
+                    <option th:each="quantity: ${productQuantity}" th:text="${quantity}"></option>
                 </select>
             </td>
             <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>

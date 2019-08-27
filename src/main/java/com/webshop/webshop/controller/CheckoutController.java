@@ -73,6 +73,7 @@ public class CheckoutController {
 //        }
 
         model.addAttribute("basket", checkoutService.fetchBasket(session));
+        model.addAttribute("productQuantity", checkoutService.getProductQuantity(session));
         model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
 
         double subTotal = checkoutService.calculateSubTotal(session);
