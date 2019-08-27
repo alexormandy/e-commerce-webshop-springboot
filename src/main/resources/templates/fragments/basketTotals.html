@@ -19,7 +19,8 @@
         <td>£<span th:text="${#numbers.formatDecimal(basket.productPrice, 2, 2)}"></span></td>
         <td class="form-group">
             <select class="form-control" id="exampleFormControlSelect1">
-                <option th:each="quantity: ${productQuantity}" th:text="${quantity}"></option>
+<!--                <option th:each="quantity: ${productQuantity}" th:text="${quantity}"></option>-->
+                <option th:each="i: ${#numbers.sequence(1, basket.productQuantity)}" th:text="${i}"></option>
             </select>
         </td>
         <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
