@@ -2,9 +2,10 @@ $(document).ready(function(){
     updateTotals();
 })
 
-function removeProduct(productIdentifier) {
+function removeProduct(productIdentifier, button) {
 
-    let quantity = $('#quantityForm').val();
+    let quantity = $(button).parent().find('#quantityForm').val();
+    console.log(quantity);
 
     $.ajax({
     type : "POST",

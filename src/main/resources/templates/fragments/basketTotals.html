@@ -6,7 +6,6 @@
         <th scope="col">Product Size</th>
         <th scope="col">Product Quantity</th>
         <th scope="col">Product Price</th>
-        <th scope="col"></th>
         <th scope="col">Remove Product</th>
     </tr>
     </thead>
@@ -17,13 +16,14 @@
         <td th:text="${basket.productSize}"></td>
         <td th:text="${basket.productQuantity}"></td>
         <td>£<span th:text="${#numbers.formatDecimal(basket.productPrice, 2, 2)}"></span></td>
+
         <td class="form-group">
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option th:each="i: ${#numbers.sequence(1, basket.productQuantity)}" th:text="${i}"></option>
+            <select class="form-control" id="quantityForm" >
+            <option th:each="i: ${#numbers.sequence(1, basket.productQuantity)}" th:text="${i}"></option>
             </select>
-        </td>
-        <td><button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'))">Remove</button></td>
-    </tr>
+        <button th:data-id="${basket.productIdentifier}" th:onclick="removeProduct(this.getAttribute('data-id'), this)">Remove</button></td>
+        </tr>
+
     <tr><th scope="col">Total Number of Items: <span th:text="${totalNumberOfItems}"></span></th></tr>
     <tr><th scope="col">Subtotal: £<span th:text="${#numbers.formatDecimal(subTotal, 2, 2)}"></span></th></tr>
     <tr><th scope="col">Delivery: £<span th:text="${#numbers.formatDecimal(deliveryCharge, 1, 2)}"></span></th></tr>
