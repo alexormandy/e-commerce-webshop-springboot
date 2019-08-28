@@ -82,6 +82,8 @@ public class CheckoutService {
                 .findFirst()
                 .orElse(null);
 
+
+
         basket.remove(itemToBeRemoved);
         session.setAttribute("basket", basket);
     }

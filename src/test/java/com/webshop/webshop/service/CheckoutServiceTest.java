@@ -75,9 +75,13 @@ public class CheckoutServiceTest {
     @Test
     public void givenItemsInBagIs5WhenOneIsAddedThenItemsInBagIs6 () {
 
-        given(mockSession.getAttribute("itemsInBag")).willReturn(5);
-//        int mockItemsInBag = checkoutService.updateShoppingBasketValue(1, mockSession);
+        List<BagItemModel> basket = new ArrayList<>();
+        basket.add(testBagItemModelA);
+        basket.add(testBagItemModelB);
 
-//        assertEquals(6, mockItemsInBag);
+        given(mockSession.getAttribute("basket")).willReturn(basket);
+        int mockItemsInBag = checkoutService.calculateNumberOfItemsInBag(mockSession);
+
+        assertEquals(2, mockItemsInBag);
     }
 }
