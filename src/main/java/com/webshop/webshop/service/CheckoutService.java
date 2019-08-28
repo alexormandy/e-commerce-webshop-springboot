@@ -72,6 +72,7 @@ public class CheckoutService {
     }
 
     public void removeFromBasket(String productIdentifier,
+                                 int quantity,
                                  HttpSession session) {
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
@@ -82,9 +83,16 @@ public class CheckoutService {
                 .findFirst()
                 .orElse(null);
 
+        if (quantity < itemToBeRemoved.getProductQuantity()) {
 
+            int updatedQuantity = itemToBeRemoved.getProductQuantity() - quantity;
+            int indexToUpdate = basket.indexOf(itemToBeRemoved);
+            basket.get(indexToUpdate).setProductQuantity(updatedQuantity);
 
-        basket.remove(itemToBeRemoved);
+        } else if (quantity == itemToBeRemoved.getProductQuantity()) {
+            basket.remove(itemToBeRemoved);
+        }
+
         session.setAttribute("basket", basket);
     }
 

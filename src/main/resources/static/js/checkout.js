@@ -4,10 +4,12 @@ $(document).ready(function(){
 
 function removeProduct(productIdentifier) {
 
+    let quantity = $('#quantityForm').val();
+
     $.ajax({
     type : "POST",
     url :  "/checkout/remove",
-    data :{"productIdentifier" : productIdentifier},
+    data :{"productIdentifier" : productIdentifier, "quantity" : quantity},
     success : function(itemsInBag) {
 
         document.getElementById("number").innerHTML = itemsInBag;

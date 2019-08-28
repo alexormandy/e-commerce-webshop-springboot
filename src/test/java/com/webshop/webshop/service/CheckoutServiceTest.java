@@ -51,7 +51,7 @@ public class CheckoutServiceTest {
 
         given(mockBagItemModelC.getProductTitle()).willReturn("ProdTitleC");
 
-        checkoutService.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), mockSession);
+        checkoutService.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), 1, mockSession);
         assertEquals(1, mockBasket.size());
         assertEquals("ProdTitleC", mockBagItemModelC.getProductTitle());
     }

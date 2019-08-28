@@ -1,6 +1,8 @@
 package com.webshop.webshop.model;
 
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 import java.util.Random;
 
 @Component
@@ -79,5 +81,15 @@ public class BagItemModel {
 
     public void setProductQuantity(int productQuantity) {
         this.productQuantity = productQuantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BagItemModel that = (BagItemModel) o;
+        return productIdentifier == that.productIdentifier &&
+                productId == that.productId &&
+                productSize.equals(that.productSize);
     }
 }

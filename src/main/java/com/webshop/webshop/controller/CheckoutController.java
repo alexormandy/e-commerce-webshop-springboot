@@ -54,10 +54,12 @@ public class CheckoutController {
     @ResponseBody
     @PostMapping("/remove")
     public String addProductToBasket(@RequestParam(name= "productIdentifier") String productIdentifier,
+                                     @RequestParam(name= "quantity") int quantity,
                                      HttpSession session){
 
         System.out.println(productIdentifier);
-        checkoutService.removeFromBasket(productIdentifier, session);
+        System.out.println(quantity);
+        checkoutService.removeFromBasket(productIdentifier, quantity, session);
         session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
 
         String itemsInBag = String.valueOf(checkoutService.calculateNumberOfItemsInBag(session));
