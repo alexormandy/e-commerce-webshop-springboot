@@ -71,20 +71,6 @@ public class CheckoutService {
         session.setAttribute("basket", basket);
     }
 
-    public List<String> getProductQuantity(HttpSession session) {
-
-        List productQuantity = new ArrayList();
-        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-
-        for (BagItemModel item: basket) {
-
-            for (int i= 1; i <= item.getProductQuantity(); i++) {
-                productQuantity.add(i);
-            }
-        }
-        return productQuantity;
-    }
-
     public void removeFromBasket(String productIdentifier,
                                  HttpSession session) {
 
