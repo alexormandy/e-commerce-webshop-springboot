@@ -29,12 +29,10 @@ public class IndexController {
     @PostMapping("/search")
     public String getSearchPage(@RequestParam String searchById, Model model) {
 
-        System.out.println("Search Id" + searchById);
-
         ProductModel productFindById = productService.getSingleProduct(searchById);
 
         if (productFindById == null) {
-            return "checkout";
+            return "fragments/productNotFound :: productNotFound";
         }
 
         model.addAttribute("productById", productFindById);
