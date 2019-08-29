@@ -22,8 +22,13 @@ public class ProductService {
 
     public ProductModel getSingleProduct(String id){
 
-        Long idLong = Long.parseLong(id);
-        return productDAO.getSingleProduct(idLong);
+        try {
+            Long idLong = Long.parseLong(id);
+            return productDAO.getSingleProduct(idLong);
+
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     public List<ProductModel> getAllProducts() {
