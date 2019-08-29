@@ -22,6 +22,10 @@ public class ProductService {
 
     public ProductModel getSingleProduct(String id){
 
+        if (id.equals("")) {
+
+        }
+
         Long idLong = Long.parseLong(id);
         return productDAO.getSingleProduct(idLong);
     }

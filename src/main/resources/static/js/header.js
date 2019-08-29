@@ -1,17 +1,12 @@
 function productById(button) {
 
-    let search = $(button).parent().find('#search').text();
-    console.log(search);
+    let searchById = $(button).parent().find('#search').val();
+    console.log(searchById);
 
-//    $.ajax({
-//    type : "POST",
-//    url :  "/checkout/remove",
-//    data :{"productIdentifier" : productIdentifier, "quantity" : quantity},
-//    success : function(itemsInBag) {
-//
-//        document.getElementById("number").innerHTML = itemsInBag;
-//        updateTotals();
+    $.ajax({
+    type : "POST",
+    url :  "/search",
+    data :{"searchById" : searchById},
 
-}
-});
-}
+})
+};
