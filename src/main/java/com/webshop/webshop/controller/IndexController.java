@@ -5,10 +5,9 @@ import com.webshop.webshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 @Controller
@@ -27,13 +26,17 @@ public class IndexController {
         return "index";
     }
 
-    @ResponseBody
     @PostMapping("/search")
-    public String getSearchPage(@RequestParam(name= "searchById") String searchById, Model model) {
+    public String getSearchPage(@RequestParam String searchById, Model model) {
 
-        System.out.println(searchById);
+        System.out.println("Search Id" + searchById);
 
         ProductModel productFindById = productService.getSingleProduct(searchById);
+
+        if (productFindById == null) {
+            return "checkout";
+        }
+
         model.addAttribute("productById", productFindById);
 
         List productByIdSizes = productService.getSizeDetails(productFindById);

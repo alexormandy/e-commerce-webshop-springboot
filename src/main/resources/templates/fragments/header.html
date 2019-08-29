@@ -18,9 +18,9 @@
                 <a id="number" class="nav-link" th:text="${session.itemsInBag} ? ${session.itemsInBag} :''"></a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search by Product ID" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="productById(this)">Search</button>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/search}" method="post">
+            <input id="search" name="searchById" class="form-control mr-sm-2" type="text" placeholder="Search by Product ID" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="submit">Search</button>
         </form>
     </div>
 </nav>
