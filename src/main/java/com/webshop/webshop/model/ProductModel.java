@@ -2,13 +2,16 @@ package com.webshop.webshop.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "product")
 public class ProductModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -17,24 +20,22 @@ public class ProductModel implements Serializable {
 
     private Double price;
 
-    private String productSizes;
-
     private String pictureUrl;
 
-    public ProductModel(String name, String description, Double price, String productSizes, String pictureUrl) {
+    @OneToMany(mappedBy = "productModel", cascade = CascadeType.ALL)
+    private Set<StockModel> stockModels;
+
+    public ProductModel(String name, String description, Double price, String pictureUrl, StockModel... stockModels) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.productSizes = productSizes;
         this.pictureUrl = pictureUrl;
+        this.stockModels = Stream.of(stockModels).collect(Collectors.toSet());
+        this.stockModels.forEach(x -> x.setProductModel(this));
     }
 
     public ProductModel() {
     }
-
-    @ManyToOne
-    @JoinColumn
-    private StockModel stockModel;
 
     public Long getId() {
         return id;
@@ -66,14 +67,6 @@ public class ProductModel implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public String getProductSizes() {
-        return productSizes;
-    }
-
-    public void setProductSizes(String productSizes) {
-        this.productSizes = productSizes;
     }
 
     public String getPictureUrl() {

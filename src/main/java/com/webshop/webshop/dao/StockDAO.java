@@ -19,4 +19,7 @@ public class StockDAO {
         stockRepository.save(stockModel);
     }
 
+    public void clearRepository() {
+        stockRepository.deleteAll();
+    }
 }
