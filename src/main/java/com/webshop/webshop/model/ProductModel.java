@@ -32,6 +32,10 @@ public class ProductModel implements Serializable {
     public ProductModel() {
     }
 
+    @ManyToOne
+    @JoinColumn
+    private StockModel stockModel;
+
     public Long getId() {
         return id;
     }
