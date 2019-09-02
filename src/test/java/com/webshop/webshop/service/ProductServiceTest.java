@@ -28,19 +28,19 @@ public class ProductServiceTest {
         productService = new ProductService();
     }
 
-    @Test
-    public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
-
-        given(mockProductModelA.getProductSizes()).willReturn("Small,Medium,Large");
-        List mockProductByIdSizes = productService.getSizeDetails(mockProductModelA);
-
-        List testProductByIdSizes = new ArrayList();
-        testProductByIdSizes.add("Small");
-        testProductByIdSizes.add("Medium");
-        testProductByIdSizes.add("Large");
-
-        assertEquals(testProductByIdSizes, mockProductByIdSizes);
-    }
+//    @Test
+//    public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
+//
+//        given(mockProductModelA.getProductSizes()).willReturn("Small,Medium,Large");
+//        List mockProductByIdSizes = productService.getSizeDetails(mockProductModelA);
+//
+//        List testProductByIdSizes = new ArrayList();
+//        testProductByIdSizes.add("Small");
+//        testProductByIdSizes.add("Medium");
+//        testProductByIdSizes.add("Large");
+//
+//        assertEquals(testProductByIdSizes, mockProductByIdSizes);
+//    }
 
 
 }
