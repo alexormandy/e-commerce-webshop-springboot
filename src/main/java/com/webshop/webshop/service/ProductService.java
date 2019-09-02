@@ -6,8 +6,7 @@ import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.model.StockModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.List;
 
 @Service
@@ -41,17 +40,18 @@ public class ProductService {
         return productDAO.findAll();
     }
 
-    public List getSizeDetails(ProductModel productModel){
-
-        StockModel stock = stockDAO.getSingleProduct(productModel.getId());
-        System.out.println(stock.getProductSize());
+//    public List getSizeDetails(ProductModel productModel){
+//
+//        StockModel stock = stockDAO.getAllProducts(productModel.getId());
+//        System.out.println(stock.getProductSize());
+//
 //        List sizes = Collections.singletonList(stock.getProductSize());
-
+//
 //        String productSize = productModel.getProductSizes();
 //        List<String> productSizeList = Arrays.asList(productSize.split("\\s*,\\s*"));
 //        return productSizeList;
-
-        return null;
-    }
+//
+//        return null;
+//    }
 
 }

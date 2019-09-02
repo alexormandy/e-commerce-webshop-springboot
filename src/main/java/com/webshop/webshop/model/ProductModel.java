@@ -22,7 +22,7 @@ public class ProductModel implements Serializable {
 
     private String pictureUrl;
 
-    @OneToMany(mappedBy = "productModel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productModel", cascade = CascadeType.MERGE)
     private Set<StockModel> stockModels;
 
     public ProductModel(String name, String description, Double price, String pictureUrl, StockModel... stockModels) {

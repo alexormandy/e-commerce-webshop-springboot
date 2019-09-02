@@ -23,7 +23,7 @@ public class StockDAO {
         stockRepository.deleteAll();
     }
 
-    public StockModel getSingleProduct(Long id){
-        return stockRepository.findById(id).orElse(null);
-    }
+//    public StockModel getAllProducts(Long id){
+//        return stockRepository.findAllById(id).orElse(null);
+//    }
 }
