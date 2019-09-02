@@ -5,7 +5,6 @@ import com.webshop.webshop.dao.StockDAO;
 import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.model.StockModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service

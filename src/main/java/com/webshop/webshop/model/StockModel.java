@@ -2,9 +2,6 @@ package com.webshop.webshop.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Table(name = "stock")
