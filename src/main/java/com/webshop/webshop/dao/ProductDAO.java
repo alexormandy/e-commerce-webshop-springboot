@@ -4,7 +4,6 @@ import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Component

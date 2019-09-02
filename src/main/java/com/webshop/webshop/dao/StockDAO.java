@@ -4,6 +4,7 @@ import com.webshop.webshop.model.StockModel;
 import com.webshop.webshop.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Component
 public class StockDAO {
@@ -21,5 +22,13 @@ public class StockDAO {
 
     public void clearRepository() {
         stockRepository.deleteAll();
+    }
+
+    public StockModel getSingleProduct(Long id){
+        return stockRepository.findById(id).orElse(null);
+    }
+
+    public List<StockModel> findAll() {
+        return stockRepository.findAll();
     }
 }
