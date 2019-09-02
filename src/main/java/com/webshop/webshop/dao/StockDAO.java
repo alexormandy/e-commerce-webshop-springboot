@@ -22,4 +22,8 @@ public class StockDAO {
     public void clearRepository() {
         stockRepository.deleteAll();
     }
+
+    public StockModel getSingleProduct(Long id){
+        return stockRepository.findById(id).orElse(null);
+    }
 }
