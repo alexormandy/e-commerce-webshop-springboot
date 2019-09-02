@@ -30,6 +30,9 @@ public class StockModel implements Serializable {
         this.productQuantity = productQuantity;
     }
 
+    public StockModel() {
+    }
+
     public Long getId() {
         return id;
     }

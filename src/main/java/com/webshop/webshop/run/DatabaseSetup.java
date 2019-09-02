@@ -41,7 +41,7 @@ public class DatabaseSetup {
 //
 //        ProductModel product6 = new ProductModel("Khaki Marl Over the Head Hoody Long", "Over-the-head hoody with contrast colour drawcord, kangaroo-style pockets and ribbed hem and cuffs.", 21.95D, "/r08yp852764w.jpg", stock1);
 
-        productDAO.saveProduct(product1);
+//        productDAO.saveProduct(product1);
 //        productDAO.saveProduct(product2);
 //        productDAO.saveProduct(product3);
 //        productDAO.saveProduct(product4);
