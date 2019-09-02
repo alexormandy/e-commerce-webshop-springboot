@@ -30,45 +30,6 @@ public class StockModel implements Serializable {
         this.productQuantity = productQuantity;
     }
 
-    public StockModel() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProductSize() {
-        return productSize;
-    }
-
-    public void setProductSize(String productSize) {
-        this.productSize = productSize;
-    }
-
-    public String getProductColour() {
-        return productColour;
-    }
-
-    public void setProductColour(String productColour) {
-        this.productColour = productColour;
-    }
-
-    public int getProductQuantity() {
-        return productQuantity;
-    }
-
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
-    }
-
-    public ProductModel getProductModel() {
-        return productModel;
-    }
-
     public void setProductModel(ProductModel productModel) {
         this.productModel = productModel;
     }
