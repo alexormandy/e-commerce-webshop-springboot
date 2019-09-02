@@ -43,7 +43,7 @@ public class ProductService {
         return productDAO.findAll();
     }
 
-    public List getSizeDetails(ProductModel productModel){
+    public List getStockDetails(ProductModel productModel){
 
         List<StockModel> stock = stockDAO.findAll();
         List sizes = new ArrayList();
@@ -51,10 +51,9 @@ public class ProductService {
         for (StockModel item : stock){
             if (item.getProductModel().getId().equals(productModel.getId())) {
 
-                sizes.add(item.getProductSize());
+                sizes.add(item.getProductSize() + " (" + item.getProductQuantity() + " in Stock)");
             }
         }
-//        List<String> productSizeList = stock.split("\\s*,\\s*");
         return sizes;
     }
 
