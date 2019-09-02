@@ -26,17 +26,11 @@ public class DatabaseSetup {
 //        productDAO.clearRepository();
 //        stockDAO.clearRepository();
 
-        StockModel stock1 = new StockModel("Small","Blue", 50);
-        StockModel stock2 = new StockModel("Medium","Blue", 50);
-        StockModel stock3 = new StockModel("4","Black", 50);
-
-        StockModel stock4 = new StockModel("Large","Blue", 50);
-
         ProductModel product1 = new ProductModel("Navy Zak Puppytooth Suit Jacket", "Navy puppytooth suit jacket in a regular fit with a two button fasten, " +
-                "jetted chest pocket with detachable pocket square", 12.50D,"/r08yy131704w.jpg", stock1, stock2);
+                "jetted chest pocket with detachable pocket square", 12.50D,"/r08yy131704w.jpg", new StockModel("Small","Blue", 50), new StockModel("Medium","Blue", 50), new StockModel("Large","Blue", 50));
 
-        ProductModel product2 = new ProductModel("Blue Short Sleeve Textured Double Collar Shirt Long", "Stay on trend this season with our short sleeve double " +
-                "collar button down shirt with a textured print design.", 20.99D, "/r08ca136705w.jpg", stock3);
+//        ProductModel product2 = new ProductModel("Blue Short Sleeve Textured Double Collar Shirt Long", "Stay on trend this season with our short sleeve double " +
+//                "collar button down shirt with a textured print design.", 20.99D, "/r08ca136705w.jpg", new StockModel("Small","Blue", 50));
 //
 //        ProductModel product3 = new ProductModel("Vans Ward Trainers", "The Ward trainers feature the iconic Vans classic side stripe, padded collars for comfort " +
 //                "and platform rubber waffle outsoles for a firm grip.", 20D, "/q08yd333707s.jpg", stock2);
@@ -48,7 +42,7 @@ public class DatabaseSetup {
 //        ProductModel product6 = new ProductModel("Khaki Marl Over the Head Hoody Long", "Over-the-head hoody with contrast colour drawcord, kangaroo-style pockets and ribbed hem and cuffs.", 21.95D, "/r08yp852764w.jpg", stock1);
 
         productDAO.saveProduct(product1);
-        productDAO.saveProduct(product2);
+//        productDAO.saveProduct(product2);
 //        productDAO.saveProduct(product3);
 //        productDAO.saveProduct(product4);
 //        productDAO.saveProduct(product5);
