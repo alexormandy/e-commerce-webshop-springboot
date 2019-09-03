@@ -47,10 +47,10 @@ public class CustomerService {
 
         System.out.println(customerModel.toString());
 
-//        customerModel.setPassword(bCryptPasswordEncoder.encode(customerModel.getPassword()));
-//        customerModel.setActive(1);
-//        CustomerRoleModel userRole = roleDAO.findByRole("ADMIN");
-//        customerModel.setCustomerRoleModels(new HashSet<>(Arrays.asList(userRole)));
+        customerModel.setPassword(bCryptPasswordEncoder.encode(customerModel.getPassword()));
+        customerModel.setActive(1);
+        CustomerRoleModel userRole = roleDAO.findByRole("ADMIN");
+        customerModel.setCustomerRoleModels(new HashSet<>(Arrays.asList(userRole)));
 
         customerDAO.save(customerModel);
     }
