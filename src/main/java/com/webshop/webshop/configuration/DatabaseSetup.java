@@ -1,4 +1,4 @@
-package com.webshop.webshop.run;
+package com.webshop.webshop.configuration;
 
 import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.dao.StockDAO;

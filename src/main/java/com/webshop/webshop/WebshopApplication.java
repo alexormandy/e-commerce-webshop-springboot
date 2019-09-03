@@ -1,6 +1,6 @@
 package com.webshop.webshop;
 
-import com.webshop.webshop.run.DatabaseSetup;
+import com.webshop.webshop.configuration.DatabaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
