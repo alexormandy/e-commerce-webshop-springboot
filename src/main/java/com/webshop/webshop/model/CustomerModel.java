@@ -36,8 +36,7 @@ public class CustomerModel implements Serializable {
 
     private int telephoneNumber;
 
-    private int active = 1;
-
+    private int active;
 
     public CustomerModel(String username,
                          String password,

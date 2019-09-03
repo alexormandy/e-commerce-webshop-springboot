@@ -1,12 +1,13 @@
 <div class="container" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="loginForm">
     <form th:action="@{/login}" method="POST" class="form-signin">
         <!--        <h3 class="form-signin-heading" th:text="Login Page"></h3>-->
-
+        <h2>Customer Login</h2>
+        <br>
         <input type="text" id="userName" name="userName" th:placeholder="username" class="form-control"/> <br/>
         <input type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
 
         <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">UserName or Password invalid, please verify</p>
+            <p style="font-size: 20; color: #FF1C19;">username or password invalid, please try again.</p>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>

@@ -1,17 +1,18 @@
 <div class="container" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="registrationForm">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+    <div>
+        <div>
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${customerModel}" method="post" class="form-horizontal"
                   role="form">
-                <h2>Registration Form</h2>
+                <h2>Customer Registration</h2>
+                <br>
                 <div class="form-group">
-                    <input type="text" th:field="*{firstname}" placeholder="First Name" class="form-control"/>
-                    <input type="text" th:field="*{username}" placeholder="UserName" class="form-control"/>
-                    <input type="password" th:field="*{password}" placeholder="Password" class="form-control"/>
+                    <input type="text" th:field="*{firstname}" placeholder="First Name" class="form-control"/><br>
+                    <input type="text" th:field="*{username}" placeholder="username" class="form-control"/><br>
+                    <input type="password" th:field="*{password}" placeholder="password" class="form-control"/>
+                    <br>
                     <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </div>
-
                 <h2><span class="text-success" th:utext="${message}"></span></h2>
             </form>
         </div>

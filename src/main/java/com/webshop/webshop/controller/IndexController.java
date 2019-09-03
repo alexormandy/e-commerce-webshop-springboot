@@ -18,44 +18,16 @@ import java.util.List;
 public class IndexController {
 
     private ProductService productService;
-    private CustomerService customerService;
 
     @Autowired
-    public IndexController(ProductService productService, CustomerService customerService) {
+    public IndexController(ProductService productService) {
         this.productService = productService;
-        this.customerService = customerService;
     }
 
     @GetMapping("/")
     public String getIndexPage() {
 
         return "index";
-    }
-
-    @GetMapping("/login")
-    public String getLoginPage() {
-
-        return "login";
-    }
-
-    @GetMapping("/registration")
-    public ModelAndView getRegistrationPage() {
-
-        ModelAndView modelAndView = new ModelAndView();
-        CustomerModel customerModel = new CustomerModel();
-
-        modelAndView.addObject("customerModel", customerModel);
-        modelAndView.setViewName("registration");
-
-        return modelAndView;
-    }
-
-    @PostMapping("/registration")
-    public ModelAndView createNewUser(@Valid CustomerModel customerModel) {
-
-        ModelAndView modelAndView = customerService.register(customerModel);
-
-        return modelAndView;
     }
 
     @PostMapping("/search")
