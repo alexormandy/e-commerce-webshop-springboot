@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Service
 public class CustomerService {
@@ -40,7 +41,7 @@ public class CustomerService {
         customerModel.setPassword(bCryptPasswordEncoder.encode(customerModel.getPassword()));
         customerModel.setActive(1);
         CustomerRoleModel userRole = roleDAO.findByRole("ADMIN");
-        customerModel.setRoleModels(new HashSet<>(Arrays.asList(userRole)));
+        customerModel.setCustomerRoleModels(new HashSet<>(Arrays.asList(userRole)));
 
         customerDAO.save(customerModel);
     }
