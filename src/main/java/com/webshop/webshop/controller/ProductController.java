@@ -35,8 +35,8 @@ public class ProductController {
         ProductModel productFindById = productService.getSingleProduct(id);
         model.addAttribute("productById", productFindById);
 
-        List productByIdSizes = productService.getStockDetails(productFindById);
-        model.addAttribute("productByIdSizes", productByIdSizes);
+        List productByIdStock = productService.getStockDetails(productFindById);
+        model.addAttribute("productByIdStock", productByIdStock);
 
         return "productById";
     }

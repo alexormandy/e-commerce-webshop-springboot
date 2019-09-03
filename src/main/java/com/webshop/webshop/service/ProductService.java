@@ -43,16 +43,16 @@ public class ProductService {
     public List getStockDetails(ProductModel productModel){
 
         List<StockModel> stock = stockDAO.findAll();
-        List sizes = new ArrayList();
+        List stockList = new ArrayList();
 
         for (StockModel item : stock){
             if (item.getProductModel().getId().equals(productModel.getId())) {
 
-                sizes.add(item.getProductSize());
-//                sizes.add(item.getProductSize() + " (" + item.getProductQuantity() + " in Stock)");
+                stockList.add(item.getProductColour() + " " + item.getProductSize() + " (" + item.getProductQuantity() +
+                        " in Stock)");
             }
         }
-        return sizes;
+        return stockList;
     }
 
 }
