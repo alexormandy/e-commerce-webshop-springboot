@@ -2,6 +2,7 @@ package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.CustomerModel;
 import com.webshop.webshop.model.ProductModel;
+import com.webshop.webshop.service.CustomerService;
 import com.webshop.webshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,12 @@ import java.util.List;
 public class IndexController {
 
     private ProductService productService;
+    private CustomerService customerService;
 
     @Autowired
-    public IndexController(ProductService productService) {
+    public IndexController(ProductService productService, CustomerService customerService) {
         this.productService = productService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/")
@@ -40,6 +43,7 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView();
         CustomerModel customerModel = new CustomerModel();
+
         modelAndView.addObject("customerModel", customerModel);
         modelAndView.setViewName("registration");
 
@@ -64,9 +68,6 @@ public class IndexController {
         }
 
         model.addAttribute("productById", productFindById);
-
-//        List productByIdSizes = productService.getSizeDetails(productFindById);
-//        model.addAttribute("productByIdSizes", productByIdSizes);
 
         return "productById";
     }

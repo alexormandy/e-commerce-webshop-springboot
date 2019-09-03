@@ -36,6 +36,9 @@ public class CustomerModel implements Serializable {
 
     private int telephoneNumber;
 
+    private int active = 1;
+
+
     public CustomerModel(String username,
                          String password,
                          String firstname,
@@ -43,8 +46,10 @@ public class CustomerModel implements Serializable {
                          String email,
                          String firstLineAddress,
                          String secondLineAddress,
-                         String city, String postcode,
-                         int telephoneNumber) {
+                         String city,
+                         String postcode,
+                         int telephoneNumber,
+                         int active) {
         randomNumber = new Random();
         this.customerId = randomNumber.nextInt(999);
         this.username = username;
@@ -57,6 +62,7 @@ public class CustomerModel implements Serializable {
         this.city = city;
         this.postcode = postcode;
         this.telephoneNumber = telephoneNumber;
+        this.active = active;
     }
 
     public CustomerModel() {
@@ -161,4 +167,21 @@ public class CustomerModel implements Serializable {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public Set<CustomerRoleModel> getCustomerRoleModels() {
+        return customerRoleModels;
+    }
+
+    public void setCustomerRoleModels(Set<CustomerRoleModel> customerRoleModels) {
+        this.customerRoleModels = customerRoleModels;
+    }
+
 }

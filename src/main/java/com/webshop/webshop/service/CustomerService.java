@@ -1,24 +1,35 @@
 package com.webshop.webshop.service;
 
+import com.webshop.webshop.dao.CustomerDAO;
+import com.webshop.webshop.dao.RoleDAO;
 import com.webshop.webshop.model.CustomerModel;
+import com.webshop.webshop.model.CustomerRoleModel;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
 
 @Service
 public class CustomerService {
 
+    private CustomerDAO customerDAO;
+    private RoleDAO roleDAO;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     public ModelAndView register(CustomerModel customerModel) {
 
         ModelAndView modelAndView = new ModelAndView();
-        CustomerModel customerModelExists = findUserByUserName(userModel.getUserName());
-
+//        CustomerModel customerModelExists = findUserByUserName(userModel.getUserName());
+//
 //        if (userModelExists != null) {
 //            modelAndView.addObject("message", "User already exists");
 //
 //        } else {
             saveUser(customerModel);
-            modelAndView.addObject("message", "User has been registered successfully");
-            modelAndView.addObject("userModel", new UserModel());
+            modelAndView.addObject("message", "Customer has been registered successfully. Please login.");
+            modelAndView.addObject("customerModel", new CustomerModel());
             modelAndView.setViewName("registration");
 //        }
         return modelAndView;
@@ -26,11 +37,11 @@ public class CustomerService {
 
     public void saveUser(CustomerModel customerModel) {
 
-        userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
-        userModel.setActive(1);
-        RoleModel userRole = roleDAO.findByRole("ADMIN");
-        userModel.setRoleModels(new HashSet<>(Arrays.asList(userRole)));
+        customerModel.setPassword(bCryptPasswordEncoder.encode(customerModel.getPassword()));
+        customerModel.setActive(1);
+        CustomerRoleModel userRole = roleDAO.findByRole("ADMIN");
+        customerModel.setRoleModels(new HashSet<>(Arrays.asList(userRole)));
 
-        userDAO.save(userModel);
+        customerDAO.save(customerModel);
     }
 }
