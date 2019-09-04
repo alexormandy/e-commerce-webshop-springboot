@@ -1,6 +1,5 @@
 package com.webshop.webshop.controller;
 
-import com.webshop.webshop.model.CustomerModel;
 import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.service.CustomerService;
 import com.webshop.webshop.service.ProductService;
@@ -8,13 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class IndexController {
