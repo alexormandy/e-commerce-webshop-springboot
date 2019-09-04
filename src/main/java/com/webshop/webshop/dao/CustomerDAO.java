@@ -19,8 +19,8 @@ public class CustomerDAO {
         customerRepository.save(customerModel);
     }
 
-    public CustomerModel findByUserName(String userName) {
-        return customerRepository.findByUserName(userName);
+    public CustomerModel findByUsername(String username) {
+        return customerRepository.findByUsername(username);
     }
 
 }

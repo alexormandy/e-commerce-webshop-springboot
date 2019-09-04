@@ -30,8 +30,7 @@ public class CustomerService {
     public ModelAndView register(CustomerModel customerModel) {
 
         ModelAndView modelAndView = new ModelAndView();
-
-        CustomerModel customerModelExists = findUserByUserName(customerModel.getUsername());
+        CustomerModel customerModelExists = findUserByUsername(customerModel.getUsername());
 
         if (customerModelExists != null) {
             modelAndView.addObject("message", "User already exists");
@@ -45,9 +44,9 @@ public class CustomerService {
         return modelAndView;
     }
 
-    public CustomerModel findUserByUserName(String userName) {
+    public CustomerModel findUserByUsername(String username) {
 
-        return customerDAO.findByUserName(userName);
+        return customerDAO.findByUsername(username);
     }
 
     public void saveUser(CustomerModel customerModel) {
