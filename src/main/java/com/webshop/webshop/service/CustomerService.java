@@ -30,18 +30,24 @@ public class CustomerService {
     public ModelAndView register(CustomerModel customerModel) {
 
         ModelAndView modelAndView = new ModelAndView();
-//        CustomerModel customerModelExists = findUserByUserName(userModel.getUserName());
-//
-//        if (userModelExists != null) {
-//            modelAndView.addObject("message", "User already exists");
-//
-//        } else {
+
+        CustomerModel customerModelExists = findUserByUserName(customerModel.getUsername());
+
+        if (customerModelExists != null) {
+            modelAndView.addObject("message", "User already exists");
+
+        } else {
             saveUser(customerModel);
             modelAndView.addObject("message", "Customer has been registered successfully. Please login.");
             modelAndView.addObject("customerModel", new CustomerModel());
             modelAndView.setViewName("registration");
-//        }
+        }
         return modelAndView;
+    }
+
+    public CustomerModel findUserByUserName(String userName) {
+
+        return customerDAO.findByUserName(userName);
     }
 
     public void saveUser(CustomerModel customerModel) {
