@@ -1,0 +1,1 @@
+REPLACE INTO `customer_roles` VALUES (1,'ADMIN');
