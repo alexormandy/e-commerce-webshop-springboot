@@ -36,7 +36,7 @@ public class CustomerModel implements Serializable {
 
     private int telephoneNumber;
 
-    private int active;
+    private boolean active;
 
     public CustomerModel(String username,
                          String password,
@@ -48,7 +48,7 @@ public class CustomerModel implements Serializable {
                          String city,
                          String postcode,
                          int telephoneNumber,
-                         int active) {
+                         boolean active) {
         randomNumber = new Random();
         this.customerId = randomNumber.nextInt(999);
         this.username = username;
@@ -167,11 +167,11 @@ public class CustomerModel implements Serializable {
         this.lastname = lastname;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

@@ -24,6 +24,8 @@
             <br>
             <h5>Product ID: <span id="productId" th:text="${product.id}">Product ID</span></h5>
             <h5 id="message"></h5>
+            <h5 th:if="${session.loggedIn}">Log In To Add Products To The Basket</h5>
+            <div th:if="!${session.loggedIn}">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Product Options
@@ -35,6 +37,7 @@
             <br>
             <button type="button" class="btn btn-success" onclick="submit(this)">Add To Checkout</button>
             <div class="w-100"></div>
+        </div>
         </div>
     </div>
 </div>
