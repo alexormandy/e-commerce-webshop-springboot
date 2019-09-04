@@ -63,10 +63,10 @@ public class CustomerService {
             String name = user.getName();
             System.out.println(name);
             notLoggedIn = false;
-            session.setAttribute("loggedIn", notLoggedIn);
+            session.setAttribute("notLoggedIn", notLoggedIn);
         } else {
             notLoggedIn = true;
-            session.setAttribute("loggedIn", notLoggedIn);
+            session.setAttribute("notLoggedIn", notLoggedIn);
         }
         return notLoggedIn;
     }

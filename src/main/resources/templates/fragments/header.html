@@ -5,20 +5,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" th:if="${session.loggedIn}">
+            <li class="nav-item" th:if="${session.notLoggedIn}">
                 <a class="nav-link" href="/login">Login</a>
             </li>
-            <li class="nav-item" th:if="${session.loggedIn}">
+            <li class="nav-item" th:if="${session.notLoggedIn}">
                 <a class="nav-link" href="/registration">Register</a>
             </li>
-            <li class="nav-item" th:if="!${session.loggedIn}">
+            <li class="nav-item" th:if="!${session.notLoggedIn}">
                 <a class="nav-link" href="/logout">Log Out</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/products">Products</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
+                <a class="nav-link" th:if="!${session.notLoggedIn}" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
             </li>
             <li id="items" class="nav-item">
                 <a id="number" class="nav-link" th:text="${session.itemsInBag} ? ${session.itemsInBag} :''"></a>
