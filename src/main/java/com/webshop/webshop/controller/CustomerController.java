@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class CustomerController {
@@ -19,7 +21,9 @@ public class CustomerController {
     }
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage() {
+    public ModelAndView getLoginPage(Principal user, HttpSession session) {
+
+        customerService.checkIfUserIsLoggedIn(user, session);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
@@ -28,10 +32,12 @@ public class CustomerController {
     }
 
     @GetMapping("/registration")
-    public ModelAndView getRegistrationPage() {
+    public ModelAndView getRegistrationPage(Principal user, HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
         CustomerModel customerModel = new CustomerModel();
+
+        customerService.checkIfUserIsLoggedIn(user, session);
 
         modelAndView.addObject("customerModel", customerModel);
         modelAndView.setViewName("registration");

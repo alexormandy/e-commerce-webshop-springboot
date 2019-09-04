@@ -11,21 +11,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class IndexController {
 
     private ProductService productService;
+    private CustomerService customerService;
 
     @Autowired
-    public IndexController(ProductService productService) {
+    public IndexController(ProductService productService, CustomerService customerService) {
+        this.customerService = customerService;
         this.productService = productService;
     }
 
     @GetMapping("/")
-    public String getIndexPage() {
+    public String getIndexPage(Principal user, HttpSession session) {
+
+        customerService.checkIfUserIsLoggedIn(user, session);
 
         return "index";
     }

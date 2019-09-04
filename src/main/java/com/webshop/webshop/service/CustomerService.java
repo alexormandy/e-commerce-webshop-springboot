@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -52,4 +54,21 @@ public class CustomerService {
 
         customerDAO.save(customerModel);
     }
+
+    public boolean checkIfUserIsLoggedIn(Principal user, HttpSession session) {
+
+        boolean notLoggedIn = false;
+
+        if (user != null) {
+            String name = user.getName();
+            System.out.println(name);
+            notLoggedIn = false;
+            session.setAttribute("loggedIn", notLoggedIn);
+        } else {
+            notLoggedIn = true;
+            session.setAttribute("loggedIn", notLoggedIn);
+        }
+        return notLoggedIn;
+    }
+
 }
