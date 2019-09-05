@@ -1,18 +1,18 @@
 package com.webshop.webshop.service;
 
+import com.webshop.webshop.dao.CustomerDAO;
+import com.webshop.webshop.dao.RoleDAO;
 import com.webshop.webshop.model.BagItemModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertTrue;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
@@ -29,26 +29,30 @@ public class CustomerServiceTest {
     private BagItemModel testBagItemModelA;
     private BagItemModel testBagItemModelB;
 
+    private CustomerDAO customerDAO;
+    private RoleDAO roleDAO;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Before
     public void setUp() {
 
-        testBagItemModelA = new BagItemModel(2, "Test Item", "Medium", 12D);
-        testBagItemModelB = new BagItemModel(3, "Test Item 2", "Large", 16D);
-
+        customerService = new CustomerService(customerDAO, roleDAO, bCryptPasswordEncoder);
     }
 
     @Test
-    public void givenUserIsLoggedInWhenSessionAttributeIsCalledThenItReturnsFalse() {
+    public void givenUserIsLoggedInWhenSessionAttributeIsCalledThenVerifyAttributeIsSet() {
 
-        mockBasket = new ArrayList<>();
-        mockBasket.add(testBagItemModelA);
-        mockBasket.add(testBagItemModelB);
+        when(mockPrincipal.getName()).thenReturn("alex");
+        customerService.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
 
-        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
+        boolean isLoggedIn = true;
 
-        boolean notLoggedIn = customerService.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
-
-        assertTrue(notLoggedIn);
+        verify(mockSession, times(1)).setAttribute("isLoggedIn", isLoggedIn);
     }
 
+    @Test
+    public void given() {
+
+
+    }
 }

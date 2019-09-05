@@ -24,8 +24,8 @@
             <br>
             <h5>Product ID: <span id="productId" th:text="${product.id}">Product ID</span></h5>
             <h5 id="message"></h5>
-            <h5 th:if="${session.notLoggedIn}">Log In To Add Products To The Basket</h5>
-            <div th:if="!${session.notLoggedIn}">
+            <h5 th:if="!${session.isLoggedIn}">Log In To Add Products To The Basket</h5>
+            <div th:if="${session.isLoggedIn}">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Product Options

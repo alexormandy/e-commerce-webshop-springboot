@@ -63,11 +63,11 @@ public class CustomerService {
 
         boolean isLoggedIn = false;
 
-        if (user == null) {
-            session.setAttribute("notLoggedIn", isLoggedIn);
+        if (user.getName() == null) {
+            session.setAttribute("isLoggedIn", isLoggedIn);
         } else {
             isLoggedIn = true;
-            session.setAttribute("notLoggedIn", isLoggedIn);
+            session.setAttribute("isLoggedIn", isLoggedIn);
         }
         return isLoggedIn;
     }
