@@ -102,5 +102,36 @@ public class CheckoutServiceTest {
         assertEquals(1,testBagItemModelA.getProductQuantity());
     }
 
+    @Test
+    public void givenWhenProductQuantityIsTwoWhenTwoIsRemovedProductIsRemoved() {
+
+        List<BagItemModel> basket = new ArrayList<>();
+        basket.add(testBagItemModelA);
+
+        testBagItemModelA.setProductQuantity(2);
+
+        given(mockSession.getAttribute("basket")).willReturn(basket);
+
+        String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
+        checkoutService.removeFromBasket(productIdentifier, 2, mockSession);
+
+        assertEquals(-1, basket.indexOf(testBagItemModelA));
+    }
+
+    @Test
+    public void givenWhenProductQuantityIsZeroWhenZeroIsRemoved() {
+
+        List<BagItemModel> basket = new ArrayList<>();
+        basket.add(testBagItemModelA);
+
+        testBagItemModelA.setProductQuantity(5);
+
+        given(mockSession.getAttribute("basket")).willReturn(basket);
+
+        String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
+        checkoutService.removeFromBasket(productIdentifier, 0, mockSession);
+
+        assertEquals(5, testBagItemModelA.getProductQuantity());
+    }
 
 }

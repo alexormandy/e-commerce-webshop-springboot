@@ -49,4 +49,13 @@ public class CustomerServiceTest {
         verify(mockSession, times(1)).setAttribute("isLoggedIn", true);
     }
 
+    @Test
+    public void givenUserIsNotLoggedInWhenSessionAttributeIsCalledThenVerifyAttributeIsSet() {
+
+        when(mockPrincipal.getName()).thenReturn(null);
+        customerService.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
+
+        verify(mockSession, times(1)).setAttribute("isLoggedIn", false);
+    }
+
 }
