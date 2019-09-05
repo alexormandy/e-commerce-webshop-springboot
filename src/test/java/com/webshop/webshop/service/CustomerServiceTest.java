@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
@@ -45,14 +46,7 @@ public class CustomerServiceTest {
         when(mockPrincipal.getName()).thenReturn("alex");
         customerService.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
 
-        boolean isLoggedIn = true;
-
-        verify(mockSession, times(1)).setAttribute("isLoggedIn", isLoggedIn);
+        verify(mockSession, times(1)).setAttribute("isLoggedIn", true);
     }
 
-    @Test
-    public void given() {
-
-
-    }
 }

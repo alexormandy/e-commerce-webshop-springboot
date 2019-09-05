@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -84,4 +85,22 @@ public class CheckoutServiceTest {
 
         assertEquals(2, mockItemsInBag);
     }
+
+    @Test
+    public void givenWhenProductQuantityIsTwoWhenOneIsRemovedQuantityIsOne() {
+
+        List<BagItemModel> basket = new ArrayList<>();
+        basket.add(testBagItemModelA);
+
+        testBagItemModelA.setProductQuantity(2);
+
+        given(mockSession.getAttribute("basket")).willReturn(basket);
+
+        String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
+        checkoutService.removeFromBasket(productIdentifier, 1, mockSession);
+
+        assertEquals(1,testBagItemModelA.getProductQuantity());
+    }
+
+
 }
