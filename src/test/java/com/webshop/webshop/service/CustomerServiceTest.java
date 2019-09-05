@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {

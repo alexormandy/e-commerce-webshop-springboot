@@ -59,17 +59,16 @@ public class CustomerService {
         customerDAO.save(customerModel);
     }
 
-    public boolean checkIfUserIsLoggedIn(Principal user, HttpSession session) {
+    public void checkIfUserIsLoggedIn(Principal user, HttpSession session) {
 
         boolean isLoggedIn = false;
 
-        if (user.getName() == null) {
+        if (user == null) {
             session.setAttribute("isLoggedIn", isLoggedIn);
         } else {
             isLoggedIn = true;
             session.setAttribute("isLoggedIn", isLoggedIn);
         }
-        return isLoggedIn;
     }
 
 }

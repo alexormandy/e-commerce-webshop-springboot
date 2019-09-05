@@ -18,7 +18,7 @@
                 <a class="nav-link" href="/products">Products</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:if="!${session.notLoggedIn}" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
+                <a class="nav-link" th:if="${session.isLoggedIn}" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
             </li>
             <li id="items" class="nav-item">
                 <a id="number" class="nav-link" th:text="${session.itemsInBag} ? ${session.itemsInBag} :''"></a>

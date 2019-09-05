@@ -2,7 +2,6 @@ package com.webshop.webshop.service;
 
 import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.dao.StockDAO;
-import com.webshop.webshop.model.BagItemModel;
 import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.model.StockModel;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -79,7 +77,7 @@ public class ProductServiceTest {
 
         List stockList = productService.getStockDetails(productModel);
 
-        List<String> expectedStockList = new ArrayList<>();
+        List<String> expectedStockList;
         expectedStockList = Collections.unmodifiableList(Arrays.asList("Blue Small (54 in Stock)", "Orange Medium (8454 in Stock)", "Blue Large (34 in Stock)"));
 
         assertEquals(expectedStockList, stockList);
