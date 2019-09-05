@@ -5,13 +5,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" th:if="${session.notLoggedIn}">
+            <li class="nav-item" th:if="!${session.notLoggedIn}">
                 <a class="nav-link" href="/login">Login</a>
             </li>
-            <li class="nav-item" th:if="${session.notLoggedIn}">
+            <li class="nav-item" th:if="!${session.notLoggedIn}">
                 <a class="nav-link" href="/registration">Register</a>
             </li>
-            <li class="nav-item" th:if="!${session.notLoggedIn}">
+            <li class="nav-item" th:if="${session.notLoggedIn}">
                 <a class="nav-link" href="/logout">Log Out</a>
             </li>
             <li class="nav-item">

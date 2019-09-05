@@ -61,16 +61,15 @@ public class CustomerService {
 
     public boolean checkIfUserIsLoggedIn(Principal user, HttpSession session) {
 
-        boolean notLoggedIn = false;
+        boolean isLoggedIn = false;
 
-        if (user != null) {
-            notLoggedIn = false;
-            session.setAttribute("notLoggedIn", notLoggedIn);
+        if (user == null) {
+            session.setAttribute("notLoggedIn", isLoggedIn);
         } else {
-            notLoggedIn = true;
-            session.setAttribute("notLoggedIn", notLoggedIn);
+            isLoggedIn = true;
+            session.setAttribute("notLoggedIn", isLoggedIn);
         }
-        return notLoggedIn;
+        return isLoggedIn;
     }
 
 }
