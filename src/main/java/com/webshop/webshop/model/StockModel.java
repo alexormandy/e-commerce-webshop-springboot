@@ -69,4 +69,15 @@ public class StockModel implements Serializable {
     public void setProductModel(ProductModel productModel) {
         this.productModel = productModel;
     }
+
+    @Override
+    public String toString() {
+        return "StockModel{" +
+                "id=" + id +
+                ", productSize='" + productSize + '\'' +
+                ", productColour='" + productColour + '\'' +
+                ", productQuantity=" + productQuantity +
+                ", productModel=" + productModel +
+                '}';
+    }
 }

@@ -64,8 +64,6 @@ public class CustomerService {
         boolean notLoggedIn = false;
 
         if (user != null) {
-            String name = user.getName();
-            System.out.println(name);
             notLoggedIn = false;
             session.setAttribute("notLoggedIn", notLoggedIn);
         } else {
