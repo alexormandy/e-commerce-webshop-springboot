@@ -1,7 +1,6 @@
 package com.webshop.webshop.controller;
 
-import com.webshop.webshop.model.BagItemModel;
-import com.webshop.webshop.service.CheckoutService;
+import com.webshop.webshop.service.AddToBagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,76 +11,41 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/checkout")
 public class CheckoutController {
 
-    private CheckoutService checkoutService;
+    private AddToBagService addToBagService;
 
     @Autowired
-    public CheckoutController(CheckoutService checkoutService) {
-        this.checkoutService = checkoutService;
+    public CheckoutController(AddToBagService addToBagService) {
+        this.addToBagService = addToBagService;
     }
 
     @GetMapping
     public String getCheckoutPage (Model model,
                                    HttpSession session) {
 
-        model.addAttribute("basket", checkoutService.fetchBasket(session));
-        model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
-        model.addAttribute("subTotal", checkoutService.calculateSubTotal(session));
+        model.addAttribute("basket", addToBagService.fetchBasket(session));
+        model.addAttribute("totalNumberOfItems", addToBagService.calculateNumberOfItemsInBag(session));
+        model.addAttribute("subTotal", addToBagService.calculateSubTotal(session));
 
         return "checkout";
-    }
-
-    @ResponseBody
-    @PostMapping("/add")
-    public String addProductToBasket(@RequestParam(name= "productId") String productId,
-                                     @RequestParam(name= "productTitle") String productTitle,
-                                     @RequestParam(name= "productSize") String productSize,
-                                     @RequestParam(name= "productPrice") String productPrice,
-                                     HttpSession session){
-
-        Double productPriceDouble = Double.parseDouble(productPrice);
-        int productIdInt = Integer.parseInt(productId);
-
-        BagItemModel bagItemModel = new BagItemModel(productIdInt, productTitle, productSize, productPriceDouble);
-
-        checkoutService.addToBasket(bagItemModel, session);
-        session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
-
-        String itemsInBag = String.valueOf(checkoutService.calculateNumberOfItemsInBag(session));
-
-        return itemsInBag;
-    }
-
-    @ResponseBody
-    @PostMapping("/remove")
-    public String addProductToBasket(@RequestParam String productIdentifier,
-                                     @RequestParam int quantity,
-                                     HttpSession session){
-
-        checkoutService.removeFromBasket(productIdentifier, quantity, session);
-        session.setAttribute("itemsInBag", checkoutService.calculateNumberOfItemsInBag(session));
-
-        String itemsInBag = String.valueOf(checkoutService.calculateNumberOfItemsInBag(session));
-
-        return itemsInBag;
     }
 
     @PostMapping("/updateTotals")
     public String updateBasketTotals(Model model, HttpSession session){
 
-        if (checkoutService.calculateNumberOfItemsInBag(session) == 0) {
+        if (addToBagService.calculateNumberOfItemsInBag(session) == 0) {
             return "fragments/emptyBasket :: emptyBasket";
         }
 
-        model.addAttribute("basket", checkoutService.fetchBasket(session));
-        model.addAttribute("totalNumberOfItems", checkoutService.calculateNumberOfItemsInBag(session));
+        model.addAttribute("basket", addToBagService.fetchBasket(session));
+        model.addAttribute("totalNumberOfItems", addToBagService.calculateNumberOfItemsInBag(session));
 
-        double subTotal = checkoutService.calculateSubTotal(session);
+        double subTotal = addToBagService.calculateSubTotal(session);
         model.addAttribute("subTotal", subTotal);
 
         double deliveryCharge = 3.50D;
         model.addAttribute("deliveryCharge", deliveryCharge);
 
-        double grandTotal = checkoutService.calculateGrandTotal(subTotal, deliveryCharge);
+        double grandTotal = addToBagService.calculateGrandTotal(subTotal, deliveryCharge);
         model.addAttribute("grandTotal", grandTotal);
 
         return "fragments/basketTotals :: basketTotals";

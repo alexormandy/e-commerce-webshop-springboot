@@ -44,7 +44,7 @@ public class ProductController {
         ProductModel productFindById = productService.getSingleProduct(id);
         model.addAttribute("productFindById", productFindById);
 
-        List productByIdStock = productService.getStockDetails(productFindById);
+        List<String> productByIdStock = productService.getStockDetails(productFindById);
         model.addAttribute("productByIdStock", productByIdStock);
 
         return "productById";

@@ -9,13 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class CheckoutService {
+public class AddToBagService {
 
     @Autowired
-    public CheckoutService() {
+    public AddToBagService() {
     }
 
-    public boolean checkIfSessionIsEmpty(HttpSession session) {
+    public boolean checkIfBasketIsEmpty(HttpSession session) {
 
         boolean empty;
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
@@ -24,52 +24,50 @@ public class CheckoutService {
             List<BagItemModel> newBasket = new ArrayList<>();
             session.setAttribute("basket", newBasket);
             empty = true;
-        } else empty = false;
+        } else {
+            empty = false;
+        }
         return empty;
     }
 
-    public void addToBasket(BagItemModel bagItemModel,
-                            HttpSession session) {
+    public void addToBagAndSetQuantity(HttpSession session, BagItemModel bagItemToAdd) {
 
-        if (checkIfSessionIsEmpty(session)){
+        if (checkIfBasketIsEmpty(session)) {
 
             List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-            basket.add(bagItemModel);
+            basket.add(bagItemToAdd);
             session.setAttribute("basket", basket);
 
         } else {
-            setProductQuantity(session, bagItemModel);
-        }
-    }
 
-    public void setProductQuantity(HttpSession session, BagItemModel bagItemToAdd) {
+            List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+            boolean addNewProduct = true;
+            boolean duplicateProduct = false;
 
-        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
-        boolean addNewProduct = false;
-        boolean duplicateProduct = false;
+            Iterator iterator = basket.iterator();
+            while (iterator.hasNext()) {
+                BagItemModel existingBagItem = (BagItemModel) iterator.next();
 
-        Iterator iterator = basket.iterator();
-        while (iterator.hasNext()) {
-            BagItemModel existingBagItem = (BagItemModel) iterator.next();
+                if (existingBagItem.getProductId() == bagItemToAdd.getProductId()
+                        && existingBagItem.getProductSize().equals(bagItemToAdd.getProductSize())) {
 
-            if (existingBagItem.getProductId() == bagItemToAdd.getProductId()
-                    && existingBagItem.getProductSize().equals(bagItemToAdd.getProductSize())) {
-                int currentQuantity = existingBagItem.getProductQuantity();
-                existingBagItem.setProductQuantity(currentQuantity +1);
-                duplicateProduct = true;
-                addNewProduct = false;
-            }
-            else {
-                if(!duplicateProduct) {
-                    addNewProduct = true;
+                    int currentQuantity = existingBagItem.getProductQuantity();
+                    existingBagItem.setProductQuantity(currentQuantity + 1);
+                    addNewProduct = false;
+                    duplicateProduct = true;
+
+                } else {
+                    if (!duplicateProduct) {
+                        addNewProduct = true;
+                    }
                 }
             }
-        }
 
-        if(addNewProduct) {
-            basket.add(bagItemToAdd);
+            if (addNewProduct) {
+                basket.add(bagItemToAdd);
+            }
+            session.setAttribute("basket", basket);
         }
-        session.setAttribute("basket", basket);
     }
 
     public void removeFromBasket(String productIdentifier,
@@ -106,7 +104,7 @@ public class CheckoutService {
 
         int total = 0;
 
-        checkIfSessionIsEmpty(session);
+        checkIfBasketIsEmpty(session);
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
 
         for (int i = 0; i < basket.size(); i++) {

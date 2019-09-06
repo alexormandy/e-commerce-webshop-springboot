@@ -37,7 +37,7 @@ public class ProductService {
         return productDAO.findAll();
     }
 
-    public List getStockDetails(ProductModel productModel){
+    public List<String> getStockDetails(ProductModel productModel){
 
         List<StockModel> stock = stockDAO.findAll();
         List stockList = new ArrayList();

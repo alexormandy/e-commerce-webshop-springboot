@@ -30,9 +30,9 @@ public class CustomerService {
     public ModelAndView register(CustomerModel customerModel) {
 
         ModelAndView modelAndView = new ModelAndView();
-        CustomerModel customerModelExists = findUserByUsername(customerModel.getUsername());
+        CustomerModel customerModelFound = findUserByUsername(customerModel.getUsername());
 
-        if (customerModelExists != null) {
+        if (customerModelFound != null) {
             modelAndView.addObject("message", "User already exists");
 
         } else {
