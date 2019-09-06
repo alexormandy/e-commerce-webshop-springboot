@@ -38,7 +38,6 @@ public class AddToBagServiceTest {
         testBagItemModelB = new BagItemModel(3, "Test Item 2", "Large", 16D);
     }
 
-    // TODO: Given, When, Then
     @Test
     public void givenBasketSizeIsTwoWhenOneItemIsRemovedFromBasketThenNewBasketSizeIsOne () {
 
@@ -146,6 +145,24 @@ public class AddToBagServiceTest {
         addToBagService.removeFromBasket(productIdentifier, 4, mockSession);
 
         assertEquals(3, testBagItemModelA.getProductQuantity());
+    }
+
+    @Test
+    public void givenProductIdentifierDoesNotExistWhenItPassedToMethodRemovedThenQuantityShouldRemain() {
+
+        List<BagItemModel> basket = new ArrayList<>();
+        basket.add(testBagItemModelA);
+
+        testBagItemModelA.setProductQuantity(3);
+//        testBagItemModelA.setProductIdentifier(32763);
+
+        given(mockSession.getAttribute("basket")).willReturn(basket);
+
+//        String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
+        String productIdentifier = "8878";
+        addToBagService.removeFromBasket(productIdentifier, 1, mockSession);
+
+        assertEquals(2, testBagItemModelA.getProductQuantity());
     }
 
 }

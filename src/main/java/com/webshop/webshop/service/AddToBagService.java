@@ -15,10 +15,15 @@ public class AddToBagService {
     public AddToBagService() {
     }
 
+    public List<BagItemModel> fetchBasket(HttpSession session) {
+
+        return (List<BagItemModel>) session.getAttribute("basket");
+    }
+
     public boolean checkIfBasketIsEmpty(HttpSession session) {
 
         boolean empty;
-        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        List<BagItemModel> basket = fetchBasket(session);
 
         if (basket == null || basket.isEmpty()) {
             List<BagItemModel> newBasket = new ArrayList<>();
@@ -34,13 +39,13 @@ public class AddToBagService {
 
         if (checkIfBasketIsEmpty(session)) {
 
-            List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+            List<BagItemModel> basket = fetchBasket(session);
             basket.add(bagItemToAdd);
             session.setAttribute("basket", basket);
 
         } else {
 
-            List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+            List<BagItemModel> basket = fetchBasket(session);
             boolean addNewProduct = true;
             boolean duplicateProduct = false;
 
@@ -74,7 +79,7 @@ public class AddToBagService {
                                  int quantity,
                                  HttpSession session) {
 
-        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        List<BagItemModel> basket = fetchBasket(session);
 
         BagItemModel itemToBeRemoved  = basket
                 .stream()
@@ -90,14 +95,10 @@ public class AddToBagService {
 
         } else if (quantity == itemToBeRemoved.getProductQuantity()) {
             basket.remove(itemToBeRemoved);
+        } else if (itemToBeRemoved == null) {
+
         }
-
         session.setAttribute("basket", basket);
-    }
-
-    public List<BagItemModel> fetchBasket(HttpSession session) {
-
-        return (List<BagItemModel>) session.getAttribute("basket");
     }
 
     public int calculateNumberOfItemsInBag(HttpSession session) {
@@ -105,7 +106,7 @@ public class AddToBagService {
         int total = 0;
 
         checkIfBasketIsEmpty(session);
-        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        List<BagItemModel> basket = fetchBasket(session);
 
         for (int i = 0; i < basket.size(); i++) {
             BagItemModel bagItem = basket.get(i);
@@ -118,7 +119,7 @@ public class AddToBagService {
 
         double subtotal = 0;
 
-        List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+        List<BagItemModel> basket = fetchBasket(session);
 
         for (int i = 0; i < basket.size(); i++) {
             BagItemModel bagItem = basket.get(i);

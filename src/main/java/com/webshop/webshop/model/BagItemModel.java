@@ -81,4 +81,7 @@ public class BagItemModel {
         this.productQuantity = productQuantity;
     }
 
+    public void setProductIdentifier(int productIdentifier) {
+        this.productIdentifier = productIdentifier;
+    }
 }
