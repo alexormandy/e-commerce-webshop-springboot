@@ -21,9 +21,6 @@ public class ProductService {
         this.stockDAO = stockDAO;
     }
 
-    public ProductService() {
-    }
-
     public ProductModel getSingleProduct(String id){
 
         try {

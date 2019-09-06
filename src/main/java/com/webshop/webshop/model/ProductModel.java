@@ -76,4 +76,5 @@ public class ProductModel implements Serializable {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+
 }

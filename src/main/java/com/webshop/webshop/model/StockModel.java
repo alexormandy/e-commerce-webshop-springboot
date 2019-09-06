@@ -80,4 +80,5 @@ public class StockModel implements Serializable {
                 ", productModel=" + productModel +
                 '}';
     }
+
 }

@@ -2,6 +2,7 @@ package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.CustomerModel;
 import com.webshop.webshop.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,19 +16,17 @@ public class CustomerController {
 
     private CustomerService customerService;
 
+    @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage(Principal user, HttpSession session) {
+    public String getLoginPage(Principal user, HttpSession session) {
 
         customerService.checkIfUserIsLoggedIn(user, session);
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
-
-        return modelAndView;
+        return "login";
     }
 
     @GetMapping("/registration")

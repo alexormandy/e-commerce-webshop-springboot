@@ -16,9 +16,10 @@ public class CheckoutService {
     }
 
     public boolean checkIfSessionIsEmpty(HttpSession session) {
-        boolean empty;
 
+        boolean empty;
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");
+
         if (basket == null || basket.isEmpty()) {
             List<BagItemModel> newBasket = new ArrayList<>();
             session.setAttribute("basket", newBasket);
@@ -102,6 +103,7 @@ public class CheckoutService {
     }
 
     public int calculateNumberOfItemsInBag(HttpSession session) {
+
         int total = 0;
 
         checkIfSessionIsEmpty(session);
@@ -115,6 +117,7 @@ public class CheckoutService {
     }
 
     public double calculateSubTotal(HttpSession session) {
+
         double subtotal = 0;
 
         List<BagItemModel> basket = (List<BagItemModel>) session.getAttribute("basket");

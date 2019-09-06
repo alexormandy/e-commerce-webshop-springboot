@@ -42,7 +42,7 @@ public class ProductController {
         customerService.checkIfUserIsLoggedIn(user, session);
 
         ProductModel productFindById = productService.getSingleProduct(id);
-        model.addAttribute("productById", productFindById);
+        model.addAttribute("productFindById", productFindById);
 
         List productByIdStock = productService.getStockDetails(productFindById);
         model.addAttribute("productByIdStock", productByIdStock);

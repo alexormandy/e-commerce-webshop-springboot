@@ -29,58 +29,48 @@ public class ProductServiceTest {
     @Mock
     private StockDAO stockDAO;
 
+    private List<StockModel> stockList;
+
     @Before
     public void setUp() {
 
         productService = new ProductService(productDAO, stockDAO);
+
+        stockList = new ArrayList<>();
+    }
+
+    public void setupData( String productSize, String productColour, int productQuantity, long productId, List<StockModel> stockList) {
+        StockModel stockModel = new StockModel();
+        ProductModel productModel = new ProductModel();
+
+        stockModel.setProductSize(productSize);
+        stockModel.setProductColour(productColour);
+        stockModel.setProductQuantity(productQuantity);
+        productModel.setId(productId);
+        stockModel.setProductModel(productModel);
+        stockList.add(stockModel);
     }
 
     @Test
     public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
 
-        StockModel stockModel1 = new StockModel("Small", "Blue", 54);
-        ProductModel productModel1 = new ProductModel();
-        productModel1.setId(10L);
-        stockModel1.setProductModel(productModel1);
-
-        StockModel stockModel2 = new StockModel("Medium", "Orange", 8454);
-        ProductModel productModel2 = new ProductModel();
-        productModel2.setId(10L);
-        stockModel2.setProductModel(productModel2);
-
-        StockModel stockModel3 = new StockModel("Large", "Blue", 34);
-        ProductModel productModel3 = new ProductModel();
-        productModel3.setId(10L);
-        stockModel3.setProductModel(productModel3);
-
-        StockModel stockModel4 = new StockModel("Small", "Red", 34);
-        ProductModel productModel4 = new ProductModel();
-        productModel4.setId(11L);
-        stockModel4.setProductModel(productModel4);
-
-        StockModel stockModel5 = new StockModel("Medium", "Yellow", 12);
-        ProductModel productModel5 = new ProductModel();
-        productModel5.setId(11L);
-        stockModel5.setProductModel(productModel5);
-
-        List<StockModel> stock = new ArrayList<>();
-        stock.add(stockModel1);
-        stock.add(stockModel2);
-        stock.add(stockModel3);
-        stock.add(stockModel4);
-        stock.add(stockModel5);
+        setupData("Small", "Blue", 54, 10L, stockList);
+        setupData("Medium", "Orange", 8454, 10L, stockList);
+        setupData("Large", "Blue", 34, 10L, stockList);
+        setupData("Small", "Red", 34, 11L, stockList);
+        setupData("Medium", "Yellow", 12, 11L, stockList);
 
         ProductModel productModel = new ProductModel();
         productModel.setId(10L);
 
-        given(stockDAO.findAll()).willReturn(stock);
+        given(stockDAO.findAll()).willReturn(stockList);
 
-        List stockList = productService.getStockDetails(productModel);
+        List returnedStockList = productService.getStockDetails(productModel);
 
         List<String> expectedStockList;
         expectedStockList = Collections.unmodifiableList(Arrays.asList("Blue Small (54 in Stock)", "Orange Medium (8454 in Stock)", "Blue Large (34 in Stock)"));
 
-        assertEquals(expectedStockList, stockList);
+        assertEquals(expectedStockList, returnedStockList);
     }
 
 }

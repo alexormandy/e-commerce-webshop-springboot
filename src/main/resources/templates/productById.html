@@ -16,7 +16,7 @@
 
 <div class="container">
     <div class="row align-items-center">
-        <div class="col" th:each="product: ${productById}">
+        <div class="col" th:each="product: ${productFindById}">
             <a th:href="@{'/products/' + ${product.id}}"><h3 id="productTitle" th:text="${product.name}">Product Name</h3></a>
             <a th:href="@{'/products/' + ${product.id}}"><img height="300" length="600" th:src="@{'/products/images' + ${product.pictureUrl}}"/></a>
             <h4 th:text="${product.description}">Product Description</h4>
