@@ -77,4 +77,15 @@ public class ProductModel implements Serializable {
         this.pictureUrl = pictureUrl;
     }
 
+    @Override
+    public String toString() {
+        return "ProductModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                ", stockModels=" + stockModels +
+                '}';
+    }
 }

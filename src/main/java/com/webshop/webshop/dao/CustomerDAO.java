@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerDAO {
 
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     public CustomerDAO(CustomerRepository customerRepository) {

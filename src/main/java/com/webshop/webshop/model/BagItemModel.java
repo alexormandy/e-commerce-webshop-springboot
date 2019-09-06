@@ -6,7 +6,7 @@ import java.util.Random;
 @Component
 public class BagItemModel {
 
-    Random randomNumber;
+    private Random randomNumber;
 
     private int productIdentifier;
 

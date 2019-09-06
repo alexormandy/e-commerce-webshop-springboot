@@ -22,11 +22,12 @@ public class CheckoutServiceTest {
     @Mock
     private BagItemModel mockBagItemModelC;
 
-    private ProductService productService;
-    private int productIdentifier;
     private CheckoutService checkoutService;
+
     private List<BagItemModel> mockBasket;
+
     private BagItemModel testBagItemModelA;
+
     private BagItemModel testBagItemModelB;
 
     @Before
@@ -86,7 +87,7 @@ public class CheckoutServiceTest {
     }
 
     @Test
-    public void givenWhenProductQuantityIsTwoWhenOneIsRemovedQuantityIsOne() {
+    public void givenProductQuantityIsTwoWhenOneIsRemovedThenQuantityIsOne() {
 
         List<BagItemModel> basket = new ArrayList<>();
         basket.add(testBagItemModelA);

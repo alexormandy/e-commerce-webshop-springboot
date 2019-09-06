@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "customers")
 public class CustomerModel implements Serializable {
 
-    Random randomNumber;
+    private Random randomNumber;
 
     @Id
     @Column(name = "customerId")

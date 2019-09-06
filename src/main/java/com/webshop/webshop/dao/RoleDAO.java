@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoleDAO {
 
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public RoleDAO(RoleRepository roleRepository) {
