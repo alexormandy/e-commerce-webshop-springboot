@@ -28,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Override
     public ModelAndView register(CustomerModel customerModel) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -45,11 +46,13 @@ public class CustomerServiceImpl implements CustomerService {
         return modelAndView;
     }
 
+    @Override
     public CustomerModel findUserByUsername(String userName) {
 
         return customerDAO.findByUserName(userName);
     }
 
+    @Override
     public void saveUser(CustomerModel customerModel) {
 
         customerModel.setPassword(bCryptPasswordEncoder.encode(customerModel.getPassword()));
@@ -60,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerDAO.save(customerModel);
     }
 
+    @Override
     public void checkIfUserIsLoggedIn(Principal user, HttpSession session) {
 
         boolean isLoggedIn = false;

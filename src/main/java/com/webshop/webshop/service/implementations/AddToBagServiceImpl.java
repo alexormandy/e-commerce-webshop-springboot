@@ -16,11 +16,13 @@ public class AddToBagServiceImpl implements AddToBagService {
     public AddToBagServiceImpl() {
     }
 
+    @Override
     public List<BagItemModel> fetchBasket(HttpSession session) {
 
         return (List<BagItemModel>) session.getAttribute("basket");
     }
 
+    @Override
     public boolean checkIfBasketIsEmpty(HttpSession session) {
 
         boolean empty;
@@ -36,6 +38,7 @@ public class AddToBagServiceImpl implements AddToBagService {
         return empty;
     }
 
+    @Override
     public void addToBagAndSetQuantity(HttpSession session, BagItemModel bagItemToAdd) {
 
         if (checkIfBasketIsEmpty(session)) {
@@ -76,6 +79,7 @@ public class AddToBagServiceImpl implements AddToBagService {
         }
     }
 
+    @Override
     public void removeFromBasket(String productIdentifier,
                                  int quantity,
                                  HttpSession session) {
@@ -102,6 +106,7 @@ public class AddToBagServiceImpl implements AddToBagService {
         session.setAttribute("basket", basket);
     }
 
+    @Override
     public int calculateNumberOfItemsInBag(HttpSession session) {
 
         int total = 0;
@@ -116,6 +121,7 @@ public class AddToBagServiceImpl implements AddToBagService {
         return total;
     }
 
+    @Override
     public double calculateSubTotal(HttpSession session) {
 
         double subtotal = 0;
@@ -129,6 +135,7 @@ public class AddToBagServiceImpl implements AddToBagService {
         return subtotal;
     }
 
+    @Override
     public double calculateGrandTotal(double subTotal, double deliveryCharge) {
 
         return subTotal + deliveryCharge;

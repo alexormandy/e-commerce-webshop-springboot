@@ -33,11 +33,13 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
     public List<ProductModel> getAllProducts() {
 
         return productDAO.findAll();
     }
 
+    @Override
     public List<String> getStockDetails(ProductModel productModel){
 
         List<StockModel> stock = stockDAO.findAll();
@@ -46,8 +48,9 @@ public class ProductServiceImpl implements ProductService {
         for (StockModel item : stock){
             if (item.getProductModel().getId().equals(productModel.getId())) {
 
-                String entry = String.format(item.getProductColour(), item.getProductSize(), "(",item.getProductQuantity(), "in Stock.", ")");
-                stockList.add(entry);
+                stockList.add(item.getProductColour() + " " + item.getProductSize() + " (" + item.getProductQuantity() +
+                        " in Stock)");
+
             }
         }
         return stockList;
