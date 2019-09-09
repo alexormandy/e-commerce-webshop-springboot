@@ -154,7 +154,7 @@ public class AddToBagServiceImplTest {
         List<BagItemModel> basket = new ArrayList<>();
         basket.add(testBagItemModelA);
 
-        testBagItemModelA.setProductQuantity(3);
+        testBagItemModelA.setProductQuantity(2);
 
         given(mockSession.getAttribute("basket")).willReturn(basket);
 

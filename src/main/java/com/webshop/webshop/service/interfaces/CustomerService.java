@@ -2,8 +2,6 @@ package com.webshop.webshop.service.interfaces;
 
 import com.webshop.webshop.model.CustomerModel;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 public interface CustomerService {
 

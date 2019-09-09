@@ -48,9 +48,15 @@ public class ProductServiceImpl implements ProductService {
         for (StockModel item : stock){
             if (item.getProductModel().getId().equals(productModel.getId())) {
 
-                stockList.add(item.getProductColour() + " " + item.getProductSize() + " (" + item.getProductQuantity() +
-                        " in Stock)");
+                StringBuilder query = new StringBuilder();
+                query.append(item.getProductColour());
+                query.append(" ");
+                query.append(item.getProductSize());
+                query.append(" (");
+                query.append(item.getProductQuantity());
+                query.append(" in Stock)");
 
+                stockList.add(query);
             }
         }
         return stockList;

@@ -12,6 +12,8 @@ import java.util.List;
 @Service
 public class AddToBagServiceImpl implements AddToBagService {
 
+    final static String BASKET = "basket";
+
     @Autowired
     public AddToBagServiceImpl() {
     }
@@ -19,7 +21,7 @@ public class AddToBagServiceImpl implements AddToBagService {
     @Override
     public List<BagItemModel> fetchBasket(HttpSession session) {
 
-        return (List<BagItemModel>) session.getAttribute("basket");
+        return (List<BagItemModel>) session.getAttribute(BASKET);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class AddToBagServiceImpl implements AddToBagService {
 
         if (basket == null || basket.isEmpty()) {
             List<BagItemModel> newBasket = new ArrayList<>();
-            session.setAttribute("basket", newBasket);
+            session.setAttribute(BASKET, newBasket);
             empty = true;
         } else {
             empty = false;
@@ -45,7 +47,7 @@ public class AddToBagServiceImpl implements AddToBagService {
 
             List<BagItemModel> basket = fetchBasket(session);
             basket.add(bagItemToAdd);
-            session.setAttribute("basket", basket);
+            session.setAttribute(BASKET, basket);
 
         } else {
 
@@ -75,7 +77,7 @@ public class AddToBagServiceImpl implements AddToBagService {
             if (addNewProduct) {
                 basket.add(bagItemToAdd);
             }
-            session.setAttribute("basket", basket);
+            session.setAttribute(BASKET, basket);
         }
     }
 
@@ -92,7 +94,9 @@ public class AddToBagServiceImpl implements AddToBagService {
                 .findFirst()
                 .orElse(null);
 
-        if (quantity < itemToBeRemoved.getProductQuantity()) {
+        if (itemToBeRemoved == null) {
+
+        } else if (quantity < itemToBeRemoved.getProductQuantity()) {
 
             int updatedQuantity = itemToBeRemoved.getProductQuantity() - quantity;
             int indexToUpdate = basket.indexOf(itemToBeRemoved);
@@ -100,10 +104,9 @@ public class AddToBagServiceImpl implements AddToBagService {
 
         } else if (quantity == itemToBeRemoved.getProductQuantity()) {
             basket.remove(itemToBeRemoved);
-        } else if (itemToBeRemoved == null) {
-
         }
-        session.setAttribute("basket", basket);
+
+        session.setAttribute(BASKET, basket);
     }
 
     @Override

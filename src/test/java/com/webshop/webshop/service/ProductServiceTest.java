@@ -52,6 +52,11 @@ public class ProductServiceTest {
         stockList.add(stockModel);
     }
 
+    public ProductServiceTest() {
+
+
+    }
+
     @Test
     public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
 
