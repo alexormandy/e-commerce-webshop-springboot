@@ -63,17 +63,4 @@ public class CustomerServiceImpl implements CustomerService {
         customerDAO.save(customerModel);
     }
 
-    @Override
-    public void checkIfUserIsLoggedIn(Principal user, HttpSession session) {
-
-        boolean isLoggedIn = false;
-
-        if (user == null) {
-            session.setAttribute("isLoggedIn", isLoggedIn);
-        } else {
-            isLoggedIn = true;
-            session.setAttribute("isLoggedIn", isLoggedIn);
-        }
-    }
-
 }

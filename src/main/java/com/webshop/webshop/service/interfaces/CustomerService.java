@@ -9,8 +9,6 @@ public interface CustomerService {
 
     public ModelAndView register(CustomerModel customerModel);
 
-    public void checkIfUserIsLoggedIn(Principal user, HttpSession session);
-
     public CustomerModel findUserByUsername(String username);
 
     public void saveUser(CustomerModel customerModel);

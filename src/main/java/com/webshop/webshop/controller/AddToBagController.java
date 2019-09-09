@@ -1,7 +1,6 @@
 package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.BagItemModel;
-import com.webshop.webshop.service.implementations.AddToBagServiceImpl;
 import com.webshop.webshop.service.interfaces.AddToBagService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

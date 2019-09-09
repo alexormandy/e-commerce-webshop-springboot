@@ -1,24 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
     <a class="navbar-brand" href="/">Alex's Online Shop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" th:if="!${session.isLoggedIn}">
+            <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/login">Login</a>
             </li>
-            <li class="nav-item" th:if="!${session.isLoggedIn}">
+            <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/registration">Register</a>
             </li>
-            <li class="nav-item" th:if="${session.isLoggedIn}">
+            <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/logout">Log Out</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/products">Products</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:if="${session.isLoggedIn}" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
+                <a class="nav-link" sec:authorize="isAuthenticated()" href="/checkout" tabindex="-1" aria-disabled="true">View Bag</a>
             </li>
             <li id="items" class="nav-item">
                 <a id="number" class="nav-link" th:text="${session.itemsInBag} ? ${session.itemsInBag} :''"></a>

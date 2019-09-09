@@ -40,22 +40,22 @@ public class CustomerServiceTest {
         customerServiceImpl = new CustomerServiceImpl(customerDAO, roleDAO, bCryptPasswordEncoder);
     }
 
-    @Test
-    public void givenUserIsLoggedInWhenSessionAttributeIsCalledThenVerifyAttributeIsSet() {
-
-        when(mockPrincipal.getName()).thenReturn("alex");
-        customerServiceImpl.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
-
-        verify(mockSession, times(1)).setAttribute("isLoggedIn", true);
-    }
-
-    @Test
-    public void givenUserIsNotLoggedInWhenSessionAttributeIsCalledThenVerifyAttributeIsSet() {
-
-        when(mockPrincipal.getName()).thenReturn(null);
-        customerServiceImpl.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
-
-        verify(mockSession, times(1)).setAttribute("isLoggedIn", false);
-    }
+//    @Test
+//    public void givenUserIsLoggedInWhenSessionAttributeIsCalledThenVerifyAttributeIsSet() {
+//
+//        when(mockPrincipal.getName()).thenReturn("alex");
+//        customerServiceImpl.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
+//
+//        verify(mockSession, times(1)).setAttribute("isLoggedIn", true);
+//    }
+//
+//    @Test
+//    public void givenUserIsNotLoggedInWhenSessionAttributeIsCalledThenVerifyAttributeIsSet() {
+//
+//        when(mockPrincipal.getName()).thenReturn(null);
+//        customerServiceImpl.checkIfUserIsLoggedIn(mockPrincipal,mockSession);
+//
+//        verify(mockSession, times(1)).setAttribute("isLoggedIn", false);
+//    }
 
 }
