@@ -1,6 +1,7 @@
 package com.webshop.webshop.service;
 
 import com.webshop.webshop.model.BagItemModel;
+import com.webshop.webshop.service.implementations.AddToBagImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AddToBagServiceTest {
+public class AddToBagImplTest {
 
     @Mock
     private HttpSession mockSession;
@@ -21,7 +22,7 @@ public class AddToBagServiceTest {
     @Mock
     private BagItemModel mockBagItemModelC;
 
-    private AddToBagService addToBagService;
+    private AddToBagImpl addToBagImpl;
 
     private List<BagItemModel> mockBasket;
 
@@ -32,7 +33,7 @@ public class AddToBagServiceTest {
     @Before
     public void setUp() {
 
-        addToBagService = new AddToBagService();
+        addToBagImpl = new AddToBagImpl();
 
         testBagItemModelA = new BagItemModel(2, "Test Item", "Medium", 12D);
         testBagItemModelB = new BagItemModel(3, "Test Item 2", "Large", 16D);
@@ -49,7 +50,7 @@ public class AddToBagServiceTest {
 
         given(mockBagItemModelC.getProductTitle()).willReturn("ProdTitleC");
 
-        addToBagService.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), 1, mockSession);
+        addToBagImpl.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), 1, mockSession);
         assertEquals(1, mockBasket.size());
         assertEquals("ProdTitleC", mockBagItemModelC.getProductTitle());
     }
@@ -63,7 +64,7 @@ public class AddToBagServiceTest {
 
         given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
-        double subTotal = addToBagService.calculateSubTotal(mockSession);
+        double subTotal = addToBagImpl.calculateSubTotal(mockSession);
 
         int subTotalInt = (int) subTotal;
 
@@ -78,7 +79,7 @@ public class AddToBagServiceTest {
         basket.add(testBagItemModelB);
 
         given(mockSession.getAttribute("basket")).willReturn(basket);
-        int mockItemsInBag = addToBagService.calculateNumberOfItemsInBag(mockSession);
+        int mockItemsInBag = addToBagImpl.calculateNumberOfItemsInBag(mockSession);
 
         assertEquals(2, mockItemsInBag);
     }
@@ -94,7 +95,7 @@ public class AddToBagServiceTest {
         given(mockSession.getAttribute("basket")).willReturn(basket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagService.removeFromBasket(productIdentifier, 1, mockSession);
+        addToBagImpl.removeFromBasket(productIdentifier, 1, mockSession);
 
         assertEquals(1,testBagItemModelA.getProductQuantity());
     }
@@ -110,7 +111,7 @@ public class AddToBagServiceTest {
         given(mockSession.getAttribute("basket")).willReturn(basket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagService.removeFromBasket(productIdentifier, 2, mockSession);
+        addToBagImpl.removeFromBasket(productIdentifier, 2, mockSession);
 
         assertEquals(-1, basket.indexOf(testBagItemModelA));
     }
@@ -126,7 +127,7 @@ public class AddToBagServiceTest {
         given(mockSession.getAttribute("basket")).willReturn(basket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagService.removeFromBasket(productIdentifier, 0, mockSession);
+        addToBagImpl.removeFromBasket(productIdentifier, 0, mockSession);
 
         assertEquals(5, testBagItemModelA.getProductQuantity());
     }
@@ -142,7 +143,7 @@ public class AddToBagServiceTest {
         given(mockSession.getAttribute("basket")).willReturn(basket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagService.removeFromBasket(productIdentifier, 4, mockSession);
+        addToBagImpl.removeFromBasket(productIdentifier, 4, mockSession);
 
         assertEquals(3, testBagItemModelA.getProductQuantity());
     }
@@ -154,13 +155,11 @@ public class AddToBagServiceTest {
         basket.add(testBagItemModelA);
 
         testBagItemModelA.setProductQuantity(3);
-//        testBagItemModelA.setProductIdentifier(32763);
 
         given(mockSession.getAttribute("basket")).willReturn(basket);
 
-//        String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
         String productIdentifier = "8878";
-        addToBagService.removeFromBasket(productIdentifier, 1, mockSession);
+        addToBagImpl.removeFromBasket(productIdentifier, 1, mockSession);
 
         assertEquals(2, testBagItemModelA.getProductQuantity());
     }

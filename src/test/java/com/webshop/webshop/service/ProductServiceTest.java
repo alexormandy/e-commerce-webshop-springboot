@@ -4,6 +4,7 @@ import com.webshop.webshop.dao.ProductDAO;
 import com.webshop.webshop.dao.StockDAO;
 import com.webshop.webshop.model.ProductModel;
 import com.webshop.webshop.model.StockModel;
+import com.webshop.webshop.service.implementations.ProductServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ProductServiceTest {
+public class ProductServiceImplTest {
 
     @Mock
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
 
     @Mock
     private ProductDAO productDAO;
@@ -34,7 +35,7 @@ public class ProductServiceTest {
     @Before
     public void setUp() {
 
-        productService = new ProductService(productDAO, stockDAO);
+        productServiceImpl = new ProductServiceImpl(productDAO, stockDAO);
 
         stockList = new ArrayList<>();
     }
@@ -65,7 +66,7 @@ public class ProductServiceTest {
 
         given(stockDAO.findAll()).willReturn(stockList);
 
-        List returnedStockList = productService.getStockDetails(productModel);
+        List returnedStockList = productServiceImpl.getStockDetails(productModel);
 
         List<String> expectedStockList;
         expectedStockList = Collections.unmodifiableList(Arrays.asList("Blue Small (54 in Stock)", "Orange Medium (8454 in Stock)", "Blue Large (34 in Stock)"));
