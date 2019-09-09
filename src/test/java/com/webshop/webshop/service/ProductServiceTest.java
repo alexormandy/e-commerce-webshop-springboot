@@ -36,7 +36,6 @@ public class ProductServiceTest {
     public void setUp() {
 
         productServiceImpl = new ProductServiceImpl(productDAO, stockDAO);
-
         stockList = new ArrayList<>();
     }
 
@@ -50,15 +49,13 @@ public class ProductServiceTest {
         productModel.setId(productId);
 
         StockModel stockModel = new StockModel(productSize, productColour, productQuantity);
-
         stockModel.setProductModel(productModel);
+
         stockList.add(stockModel);
     }
 
     @Test
     public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
-
-
 
         setupData("Small", "Blue", 54, 10L, stockList);
         setupData("Medium", "Orange", 8454, 10L, stockList);
