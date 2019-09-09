@@ -40,25 +40,25 @@ public class ProductServiceTest {
         stockList = new ArrayList<>();
     }
 
-    public void setupData( String productSize, String productColour, int productQuantity, long productId, List<StockModel> stockList) {
-        StockModel stockModel = new StockModel();
-        ProductModel productModel = new ProductModel();
+    public void setupData(String productSize,
+                          String productColour,
+                          int productQuantity,
+                          long productId,
+                          List<StockModel> stockList) {
 
-        stockModel.setProductSize(productSize);
-        stockModel.setProductColour(productColour);
-        stockModel.setProductQuantity(productQuantity);
+        ProductModel productModel = new ProductModel();
         productModel.setId(productId);
+
+        StockModel stockModel = new StockModel(productSize, productColour, productQuantity);
+
         stockModel.setProductModel(productModel);
         stockList.add(stockModel);
     }
 
-    public ProductServiceTest() {
-
-
-    }
-
     @Test
     public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
+
+
 
         setupData("Small", "Blue", 54, 10L, stockList);
         setupData("Medium", "Orange", 8454, 10L, stockList);
