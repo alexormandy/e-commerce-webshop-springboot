@@ -1,7 +1,7 @@
 package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.BagItemModel;
-import com.webshop.webshop.service.interfaces.AddToBagService;
+import com.webshop.webshop.service.interfaces.BagService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/checkout")
 public class AddToBagController {
 
-    private AddToBagService addToBagService;
+    private BagService bagService;
 
-    public AddToBagController(AddToBagService addToBagService) {
-        this.addToBagService = addToBagService;
+    public AddToBagController(BagService bagService) {
+        this.bagService = bagService;
     }
 
     @ResponseBody
@@ -32,10 +32,10 @@ public class AddToBagController {
 
         BagItemModel bagItemModel = new BagItemModel(productIdInt, productTitle, productSize, productPriceDouble);
 
-        addToBagService.addToBagAndSetQuantity(session, bagItemModel);
-        session.setAttribute("itemsInBag", addToBagService.calculateNumberOfItemsInBag(session));
+        bagService.addToBagAndSetQuantity(session, bagItemModel);
+        session.setAttribute("itemsInBag", bagService.calculateNumberOfItemsInBag(session));
 
-        String itemsInBag = String.valueOf(addToBagService.calculateNumberOfItemsInBag(session));
+        String itemsInBag = String.valueOf(bagService.calculateNumberOfItemsInBag(session));
 
         return itemsInBag;
     }
@@ -46,10 +46,10 @@ public class AddToBagController {
                                      @RequestParam int quantity,
                                      HttpSession session){
 
-        addToBagService.removeFromBasket(productIdentifier, quantity, session);
-        session.setAttribute("itemsInBag", addToBagService.calculateNumberOfItemsInBag(session));
+        bagService.removeFromBasket(productIdentifier, quantity, session);
+        session.setAttribute("itemsInBag", bagService.calculateNumberOfItemsInBag(session));
 
-        String itemsInBag = String.valueOf(addToBagService.calculateNumberOfItemsInBag(session));
+        String itemsInBag = String.valueOf(bagService.calculateNumberOfItemsInBag(session));
 
         return itemsInBag;
     }

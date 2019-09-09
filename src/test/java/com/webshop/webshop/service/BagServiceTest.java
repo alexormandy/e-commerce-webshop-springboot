@@ -1,7 +1,7 @@
 package com.webshop.webshop.service;
 
 import com.webshop.webshop.model.BagItemModel;
-import com.webshop.webshop.service.implementations.AddToBagServiceImpl;
+import com.webshop.webshop.service.implementations.BagServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AddToBagServiceImplTest {
+public class BagServiceTest {
 
     @Mock
     private HttpSession mockSession;
@@ -22,7 +23,7 @@ public class AddToBagServiceImplTest {
     @Mock
     private BagItemModel mockBagItemModelC;
 
-    private AddToBagServiceImpl addToBagServiceImpl;
+    private BagServiceImpl bagServiceImpl;
 
     private List<BagItemModel> mockBasket;
 
@@ -33,7 +34,9 @@ public class AddToBagServiceImplTest {
     @Before
     public void setUp() {
 
-        addToBagServiceImpl = new AddToBagServiceImpl();
+        bagServiceImpl = new BagServiceImpl();
+
+        mockBasket = new ArrayList<>();
 
         testBagItemModelA = new BagItemModel(2, "Test Item", "Medium", 12D);
         testBagItemModelB = new BagItemModel(3, "Test Item 2", "Large", 16D);
@@ -42,7 +45,6 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenBasketSizeIsTwoWhenOneItemIsRemovedFromBasketThenNewBasketSizeIsOne () {
 
-        mockBasket = new ArrayList<>();
         mockBasket.add(testBagItemModelA);
         mockBasket.add(mockBagItemModelC);
 
@@ -50,7 +52,7 @@ public class AddToBagServiceImplTest {
 
         given(mockBagItemModelC.getProductTitle()).willReturn("ProdTitleC");
 
-        addToBagServiceImpl.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), 1, mockSession);
+        bagServiceImpl.removeFromBasket(String.valueOf(testBagItemModelA.getProductIdentifier()), 1, mockSession);
         assertEquals(1, mockBasket.size());
         assertEquals("ProdTitleC", mockBagItemModelC.getProductTitle());
     }
@@ -58,13 +60,12 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenTwoProductsWhenSubTotalIsCalculatedThenProductsAreAddedTogether () {
 
-        mockBasket = new ArrayList<>();
         mockBasket.add(testBagItemModelA);
         mockBasket.add(testBagItemModelB);
 
         given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
-        double subTotal = addToBagServiceImpl.calculateSubTotal(mockSession);
+        double subTotal = bagServiceImpl.calculateSubTotal(mockSession);
 
         int subTotalInt = (int) subTotal;
 
@@ -74,12 +75,11 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenItemsInBagIs5WhenOneIsAddedThenItemsInBagIs6 () {
 
-        List<BagItemModel> basket = new ArrayList<>();
-        basket.add(testBagItemModelA);
-        basket.add(testBagItemModelB);
+        mockBasket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelB);
 
-        given(mockSession.getAttribute("basket")).willReturn(basket);
-        int mockItemsInBag = addToBagServiceImpl.calculateNumberOfItemsInBag(mockSession);
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
+        int mockItemsInBag = bagServiceImpl.calculateNumberOfItemsInBag(mockSession);
 
         assertEquals(2, mockItemsInBag);
     }
@@ -87,15 +87,14 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenProductQuantityIsTwoWhenOneIsRemovedThenQuantityIsOne() {
 
-        List<BagItemModel> basket = new ArrayList<>();
-        basket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelA);
 
         testBagItemModelA.setProductQuantity(2);
 
-        given(mockSession.getAttribute("basket")).willReturn(basket);
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagServiceImpl.removeFromBasket(productIdentifier, 1, mockSession);
+        bagServiceImpl.removeFromBasket(productIdentifier, 1, mockSession);
 
         assertEquals(1,testBagItemModelA.getProductQuantity());
     }
@@ -103,31 +102,29 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenProductQuantityIsTwoWhenTwoIsRemovedThenProductIsRemoved() {
 
-        List<BagItemModel> basket = new ArrayList<>();
-        basket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelA);
 
         testBagItemModelA.setProductQuantity(2);
 
-        given(mockSession.getAttribute("basket")).willReturn(basket);
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagServiceImpl.removeFromBasket(productIdentifier, 2, mockSession);
+        bagServiceImpl.removeFromBasket(productIdentifier, 2, mockSession);
 
-        assertEquals(-1, basket.indexOf(testBagItemModelA));
+        assertEquals(-1, mockBasket.indexOf(testBagItemModelA));
     }
 
     @Test
     public void givenProductQuantityIsZeroWhenZeroIsRemovedThenQuantityShouldRemain() {
 
-        List<BagItemModel> basket = new ArrayList<>();
-        basket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelA);
 
         testBagItemModelA.setProductQuantity(5);
 
-        given(mockSession.getAttribute("basket")).willReturn(basket);
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagServiceImpl.removeFromBasket(productIdentifier, 0, mockSession);
+        bagServiceImpl.removeFromBasket(productIdentifier, 0, mockSession);
 
         assertEquals(5, testBagItemModelA.getProductQuantity());
     }
@@ -135,15 +132,14 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenProductQuantityIs3When4IsRemovedThenQuantityShouldRemain() {
 
-        List<BagItemModel> basket = new ArrayList<>();
-        basket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelA);
 
         testBagItemModelA.setProductQuantity(3);
 
-        given(mockSession.getAttribute("basket")).willReturn(basket);
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
         String productIdentifier = String.valueOf(testBagItemModelA.getProductIdentifier());
-        addToBagServiceImpl.removeFromBasket(productIdentifier, 4, mockSession);
+        bagServiceImpl.removeFromBasket(productIdentifier, 4, mockSession);
 
         assertEquals(3, testBagItemModelA.getProductQuantity());
     }
@@ -151,17 +147,40 @@ public class AddToBagServiceImplTest {
     @Test
     public void givenProductIdentifierDoesNotExistWhenItPassedToMethodRemovedThenQuantityShouldRemain() {
 
-        List<BagItemModel> basket = new ArrayList<>();
-        basket.add(testBagItemModelA);
+        mockBasket.add(testBagItemModelA);
 
         testBagItemModelA.setProductQuantity(2);
 
-        given(mockSession.getAttribute("basket")).willReturn(basket);
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
 
         String productIdentifier = "8878";
-        addToBagServiceImpl.removeFromBasket(productIdentifier, 1, mockSession);
+        bagServiceImpl.removeFromBasket(productIdentifier, 1, mockSession);
 
         assertEquals(2, testBagItemModelA.getProductQuantity());
+    }
+
+    @Test
+    public void givenProductQuantityIsTwoWhenOneIsAddedThenProductQuantityIsThree() {
+
+        mockBasket.add(testBagItemModelA);
+
+        testBagItemModelA.setProductQuantity(2);
+
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
+
+        bagServiceImpl.addToBagAndSetQuantity(mockSession, testBagItemModelA);
+
+        assertEquals(3, testBagItemModelA.getProductQuantity());
+    }
+
+    @Test
+    public void givenProductDoesNotExistInBagWhenProductModelIsPassedThenProductQuantityIsOne() {
+
+        given(mockSession.getAttribute("basket")).willReturn(mockBasket);
+
+        bagServiceImpl.addToBagAndSetQuantity(mockSession, testBagItemModelA);
+
+        assertEquals(1, testBagItemModelA.getProductQuantity());
     }
 
 }
