@@ -4,6 +4,7 @@ import com.webshop.webshop.dao.CustomerDAO;
 import com.webshop.webshop.dao.RoleDAO;
 import com.webshop.webshop.model.CustomerModel;
 import com.webshop.webshop.model.CustomerRoleModel;
+import com.webshop.webshop.service.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 @Service
-public class CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
     private CustomerDAO customerDAO;
     private RoleDAO roleDAO;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public CustomerService(CustomerDAO customerDAO, RoleDAO roleDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public CustomerServiceImpl(CustomerDAO customerDAO, RoleDAO roleDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.customerDAO = customerDAO;
         this.roleDAO = roleDAO;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -30,7 +31,7 @@ public class CustomerService {
     public ModelAndView register(CustomerModel customerModel) {
 
         ModelAndView modelAndView = new ModelAndView();
-        CustomerModel customerModelFound = findUserByUsername(customerModel.getUsername());
+        CustomerModel customerModelFound = findUserByUsername(customerModel.getUserName());
 
         if (customerModelFound != null) {
             modelAndView.addObject("message", "User already exists");
@@ -44,9 +45,9 @@ public class CustomerService {
         return modelAndView;
     }
 
-    public CustomerModel findUserByUsername(String username) {
+    public CustomerModel findUserByUsername(String userName) {
 
-        return customerDAO.findByUsername(username);
+        return customerDAO.findByUserName(userName);
     }
 
     public void saveUser(CustomerModel customerModel) {

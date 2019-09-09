@@ -1,4 +1,18 @@
 package com.webshop.webshop.service.interfaces;
 
-public interface CustomerServiceImpl {
+import com.webshop.webshop.model.CustomerModel;
+import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
+
+public interface CustomerService {
+
+    public ModelAndView register(CustomerModel customerModel);
+
+    public void checkIfUserIsLoggedIn(Principal user, HttpSession session);
+
+    public CustomerModel findUserByUsername(String username);
+
+    public void saveUser(CustomerModel customerModel);
+
 }

@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ProductServiceImplTest {
+public class ProductServiceTest {
 
     @Mock
     private ProductServiceImpl productServiceImpl;

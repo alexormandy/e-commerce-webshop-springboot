@@ -1,8 +1,10 @@
 package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.ProductModel;
-import com.webshop.webshop.service.CustomerService;
-import com.webshop.webshop.service.ProductService;
+import com.webshop.webshop.service.implementations.CustomerServiceImpl;
+import com.webshop.webshop.service.implementations.ProductServiceImpl;
+import com.webshop.webshop.service.interfaces.CustomerService;
+import com.webshop.webshop.service.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

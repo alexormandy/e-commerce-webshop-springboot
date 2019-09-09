@@ -4,7 +4,7 @@ import com.webshop.webshop.model.BagItemModel;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public interface AddToBagInterface {
+public interface AddToBagService {
 
     public List<BagItemModel> fetchBasket(HttpSession session);
 

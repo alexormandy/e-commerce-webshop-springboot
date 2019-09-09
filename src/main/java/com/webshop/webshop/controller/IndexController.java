@@ -1,8 +1,8 @@
 package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.ProductModel;
-import com.webshop.webshop.service.CustomerService;
-import com.webshop.webshop.service.ProductService;
+import com.webshop.webshop.service.implementations.CustomerServiceImpl;
+import com.webshop.webshop.service.implementations.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,19 +13,19 @@ import java.security.Principal;
 @Controller
 public class IndexController {
 
-    private ProductService productService;
-    private CustomerService customerService;
+    private ProductServiceImpl productServiceImpl;
+    private CustomerServiceImpl customerServiceImpl;
 
     @Autowired
-    public IndexController(ProductService productService, CustomerService customerService) {
-        this.customerService = customerService;
-        this.productService = productService;
+    public IndexController(ProductServiceImpl productServiceImpl, CustomerServiceImpl customerServiceImpl) {
+        this.customerServiceImpl = customerServiceImpl;
+        this.productServiceImpl = productServiceImpl;
     }
 
     @GetMapping("/")
     public String getIndexPage(Principal user, HttpSession session) {
 
-        customerService.checkIfUserIsLoggedIn(user, session);
+        customerServiceImpl.checkIfUserIsLoggedIn(user, session);
 
         return "index";
     }
@@ -33,7 +33,7 @@ public class IndexController {
     @PostMapping("/search")
     public String getSearchPage(@RequestParam String searchById, Model model) {
 
-        ProductModel productFindById = productService.getSingleProduct(searchById);
+        ProductModel productFindById = productServiceImpl.getSingleProduct(searchById);
 
         if (productFindById == null) {
             return "fragments/productNotFound :: productNotFound";

@@ -1,6 +1,6 @@
 package com.webshop.webshop.controller;
 
-import com.webshop.webshop.service.AddToBagService;
+import com.webshop.webshop.service.implementations.AddToBagServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,20 +11,20 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/checkout")
 public class CheckoutController {
 
-    private AddToBagService addToBagService;
+    private AddToBagServiceImpl addToBagServiceImpl;
 
     @Autowired
-    public CheckoutController(AddToBagService addToBagService) {
-        this.addToBagService = addToBagService;
+    public CheckoutController(AddToBagServiceImpl addToBagServiceImpl) {
+        this.addToBagServiceImpl = addToBagServiceImpl;
     }
 
     @GetMapping
     public String getCheckoutPage (Model model,
                                    HttpSession session) {
 
-        model.addAttribute("basket", addToBagService.fetchBasket(session));
-        model.addAttribute("totalNumberOfItems", addToBagService.calculateNumberOfItemsInBag(session));
-        model.addAttribute("subTotal", addToBagService.calculateSubTotal(session));
+        model.addAttribute("basket", addToBagServiceImpl.fetchBasket(session));
+        model.addAttribute("totalNumberOfItems", addToBagServiceImpl.calculateNumberOfItemsInBag(session));
+        model.addAttribute("subTotal", addToBagServiceImpl.calculateSubTotal(session));
 
         return "checkout";
     }
@@ -32,20 +32,20 @@ public class CheckoutController {
     @PostMapping("/updateTotals")
     public String updateBasketTotals(Model model, HttpSession session){
 
-        if (addToBagService.calculateNumberOfItemsInBag(session) == 0) {
+        if (addToBagServiceImpl.calculateNumberOfItemsInBag(session) == 0) {
             return "fragments/emptyBasket :: emptyBasket";
         }
 
-        model.addAttribute("basket", addToBagService.fetchBasket(session));
-        model.addAttribute("totalNumberOfItems", addToBagService.calculateNumberOfItemsInBag(session));
+        model.addAttribute("basket", addToBagServiceImpl.fetchBasket(session));
+        model.addAttribute("totalNumberOfItems", addToBagServiceImpl.calculateNumberOfItemsInBag(session));
 
-        double subTotal = addToBagService.calculateSubTotal(session);
+        double subTotal = addToBagServiceImpl.calculateSubTotal(session);
         model.addAttribute("subTotal", subTotal);
 
         double deliveryCharge = 3.50D;
         model.addAttribute("deliveryCharge", deliveryCharge);
 
-        double grandTotal = addToBagService.calculateGrandTotal(subTotal, deliveryCharge);
+        double grandTotal = addToBagServiceImpl.calculateGrandTotal(subTotal, deliveryCharge);
         model.addAttribute("grandTotal", grandTotal);
 
         return "fragments/basketTotals :: basketTotals";

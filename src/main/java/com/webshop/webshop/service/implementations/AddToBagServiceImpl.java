@@ -1,7 +1,7 @@
 package com.webshop.webshop.service.implementations;
 
 import com.webshop.webshop.model.BagItemModel;
-import com.webshop.webshop.service.interfaces.AddToBagInterface;
+import com.webshop.webshop.service.interfaces.AddToBagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
@@ -10,10 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class AddToBagImpl implements AddToBagInterface {
+public class AddToBagServiceImpl implements AddToBagService {
 
     @Autowired
-    public AddToBagImpl() {
+    public AddToBagServiceImpl() {
     }
 
     public List<BagItemModel> fetchBasket(HttpSession session) {

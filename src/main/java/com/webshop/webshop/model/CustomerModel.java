@@ -16,7 +16,7 @@ public class CustomerModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
 
-    private String username;
+    private String userName;
 
     private String password;
 
@@ -38,7 +38,7 @@ public class CustomerModel implements Serializable {
 
     private boolean active;
 
-    public CustomerModel(String username,
+    public CustomerModel(String userName,
                          String password,
                          String firstName,
                          String lastName,
@@ -51,7 +51,7 @@ public class CustomerModel implements Serializable {
                          boolean active) {
         randomNumber = new Random();
         this.customerId = randomNumber.nextInt(999);
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -87,12 +87,12 @@ public class CustomerModel implements Serializable {
         this.customerId = customerId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -167,7 +167,7 @@ public class CustomerModel implements Serializable {
         this.lastName = lastName;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 

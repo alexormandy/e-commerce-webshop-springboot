@@ -1,7 +1,8 @@
 package com.webshop.webshop.controller;
 
 import com.webshop.webshop.model.CustomerModel;
-import com.webshop.webshop.service.CustomerService;
+import com.webshop.webshop.service.implementations.CustomerServiceImpl;
+import com.webshop.webshop.service.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
