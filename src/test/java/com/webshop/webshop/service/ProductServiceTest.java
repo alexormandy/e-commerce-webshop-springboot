@@ -32,6 +32,8 @@ public class ProductServiceTest {
 
     private List<StockModel> stockList;
 
+    final long productId = 10L;
+
     @Before
     public void setUp() {
 
@@ -50,28 +52,29 @@ public class ProductServiceTest {
 
         StockModel stockModel = new StockModel(productSize, productColour, productQuantity);
         stockModel.setProductModel(productModel);
-
         stockList.add(stockModel);
+
     }
 
     @Test
     public void givenProductModelProvidesSizeStringWhenProductIsPassedInThenRegExSplitsTheString() {
 
-        setupData("Small", "Blue", 54, 10L, stockList);
-        setupData("Medium", "Orange", 8454, 10L, stockList);
-        setupData("Large", "Blue", 34, 10L, stockList);
+        setupData("Small", "Blue", 54, productId, stockList);
+        setupData("Medium", "Orange", 8454, productId, stockList);
+        setupData("Large", "Blue", 34, productId, stockList);
         setupData("Small", "Red", 34, 11L, stockList);
         setupData("Medium", "Yellow", 12, 11L, stockList);
 
-        ProductModel productModel = new ProductModel();
-        productModel.setId(10L);
+        ProductModel productModelLookup = new ProductModel();
+        productModelLookup.setId(productId);
 
         given(stockDAO.findAll()).willReturn(stockList);
+        List<String> returnedStockList = productServiceImpl.getStockDetails(productModelLookup);
 
-        List returnedStockList = productServiceImpl.getStockDetails(productModel);
-
-        List<String> expectedStockList;
-        expectedStockList = Collections.unmodifiableList(Arrays.asList("Blue Small (54 in Stock)", "Orange Medium (8454 in Stock)", "Blue Large (34 in Stock)"));
+        List<String> expectedStockList = new ArrayList<>();
+        expectedStockList.add("Blue Small (54 in Stock)");
+        expectedStockList.add("Orange Medium (8454 in Stock)");
+        expectedStockList.add("Blue Large (34 in Stock)");
 
         assertEquals(expectedStockList, returnedStockList);
     }
