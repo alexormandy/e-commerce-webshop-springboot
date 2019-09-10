@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
                 query.append(item.getProductQuantity());
                 query.append(" in Stock)");
 
-                stockList.add(query);
+                stockList.add(query.toString());
             }
         }
         return stockList;
